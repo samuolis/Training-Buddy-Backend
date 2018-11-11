@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="58989ff0-abdb-49b6-bb1d-13bc9bf33f75" name="Default Changelist" comment="" />
+    <list default="true" id="58989ff0-abdb-49b6-bb1d-13bc9bf33f75" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/dao/AuthenticationDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/domain/Authentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/domain/Authentication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/appengine-generated/datastore-indexes-auto.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/SpringScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/SpringScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/dao/AuthenticationDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/Authentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/Authentication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/service/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/service/AuthenticationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/SpringScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/SpringScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/dao/AuthenticationDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/domain/Authentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/domain/Authentication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/service/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/service/AuthenticationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,14 +43,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="51" />
-          <entry key="java" value="2483" />
+          <entry key="java" value="3002" />
           <entry key="txt" value="46" />
           <entry key="xml" value="63" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2483" />
+          <entry key="JAVA" value="3002" />
           <entry key="PLAIN_TEXT" value="97" />
           <entry key="XML" value="63" />
         </counts>
@@ -36,14 +58,16 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="1" />
-          <entry key="java" value="14" />
+          <entry key="java" value="18" />
+          <entry key="jsp" value="1" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="14" />
+          <entry key="JAVA" value="18" />
+          <entry key="JSP" value="1" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
@@ -63,10 +87,36 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/AuthenticationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+            <state relative-caret-position="436">
+              <caret line="32" column="5" selection-start-line="29" selection-start-column="4" selection-end-line="32" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/UserService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="348">
+              <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#436#437#0" expanded="true" />
+                <element signature="e#499#500#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -82,12 +132,60 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/domain/Authentication.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/domain/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-114">
-              <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="7" />
+            <state relative-caret-position="84">
+              <caret line="52" column="33" lean-forward="true" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#575#576#0" expanded="true" />
+                <element signature="e#604#605#0" expanded="true" />
+                <element signature="e#655#656#0" expanded="true" />
+                <element signature="e#680#681#0" expanded="true" />
+                <element signature="e#713#714#0" expanded="true" />
+                <element signature="e#741#742#0" expanded="true" />
+                <element signature="e#648#649#0" expanded="true" />
+                <element signature="e#684#685#0" expanded="true" />
+                <element signature="e#719#720#0" expanded="true" />
+                <element signature="e#750#751#0" expanded="true" />
+                <element signature="e#798#799#0" expanded="true" />
+                <element signature="e#838#839#0" expanded="true" />
+                <element signature="e#870#871#0" expanded="true" />
+                <element signature="e#898#899#0" expanded="true" />
+                <element signature="e#940#941#0" expanded="true" />
+                <element signature="e#974#975#0" expanded="true" />
+                <element signature="e#1012#1013#0" expanded="true" />
+                <element signature="e#1046#1047#0" expanded="true" />
+                <element signature="e#1100#1101#0" expanded="true" />
+                <element signature="e#1146#1147#0" expanded="true" />
+                <element signature="e#1180#1181#0" expanded="true" />
+                <element signature="e#1212#1213#0" expanded="true" />
+                <element signature="e#1260#1261#0" expanded="true" />
+                <element signature="e#1302#1303#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/domain/Authentication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#631#632#0" expanded="true" />
+                <element signature="e#689#690#0" expanded="true" />
+                <element signature="e#741#742#0" expanded="true" />
+                <element signature="e#572#573#0" expanded="true" />
+                <element signature="e#604#605#0" expanded="true" />
+                <element signature="e#652#653#0" expanded="true" />
+                <element signature="e#694#695#0" expanded="true" />
                 <element signature="e#482#483#0" expanded="true" />
                 <element signature="e#521#522#0" expanded="true" />
                 <element signature="e#585#586#0" expanded="true" />
@@ -108,8 +206,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="12" column="33" lean-forward="true" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+            <state relative-caret-position="308">
+              <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -120,32 +218,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="53" column="56" selection-start-line="53" selection-start-column="56" selection-end-line="53" selection-end-column="56" />
+            <state relative-caret-position="568">
+              <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/dao/AuthenticationDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="12" column="71" selection-start-line="12" selection-start-column="71" selection-end-line="12" selection-end-column="71" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7">
-              <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -169,6 +246,9 @@
       <find>logback</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GradleLocalSettings">
     <option name="projectSyncType">
       <map>
@@ -189,9 +269,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/google/dao/AuthenticationDao.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/google/domain/Authentication.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/controller/AuthenticationController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/google/service/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/google/domain/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/google/domain/Authentication.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java" />
       </list>
     </option>
@@ -235,11 +318,12 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="407" />
+    <option name="y" value="-26" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -287,6 +371,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="google" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TrainingBackendApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TrainingBackendApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="google" type="462c0819:PsiDirectoryNode" />
               <item name="domain" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -324,7 +417,7 @@
     <property name="ACTIVE_CLOUD_PROJECT_ID" value="trainingbuddy-221215" />
     <property name="ACTIVE_CLOUD_PROJECT_NAME" value="trainingbuddy" />
     <property name="ACTIVE_CLOUD_PROJECT_NUMBER" value="278738625543" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541886924067" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541963931364" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../GitHub/ud859/Lesson_4/00_Conference_Central" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
@@ -557,16 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/HelloAppEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="56" selection-start-line="27" selection-start-column="11" selection-end-line="29" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/google/domain/Email.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -609,15 +692,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/dao/AuthenticationDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
-          <caret line="12" column="33" lean-forward="true" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+          <caret line="12" column="71" selection-start-line="12" selection-start-column="71" selection-end-line="12" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/HelloAppEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="29" column="56" selection-start-line="27" selection-start-column="11" selection-end-line="29" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/AuthenticationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="32" column="5" selection-start-line="29" selection-start-column="4" selection-end-line="32" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/google/domain/UserData.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -626,22 +732,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/dao/AuthenticationDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="12" column="71" selection-start-line="12" selection-start-column="71" selection-end-line="12" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/google/domain/Authentication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-114">
-          <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="7" />
+        <state relative-caret-position="480">
+          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#631#632#0" expanded="true" />
+            <element signature="e#689#690#0" expanded="true" />
+            <element signature="e#741#742#0" expanded="true" />
+            <element signature="e#572#573#0" expanded="true" />
+            <element signature="e#604#605#0" expanded="true" />
+            <element signature="e#652#653#0" expanded="true" />
+            <element signature="e#694#695#0" expanded="true" />
             <element signature="e#482#483#0" expanded="true" />
             <element signature="e#521#522#0" expanded="true" />
             <element signature="e#585#586#0" expanded="true" />
@@ -658,10 +761,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/AuthenticationController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+        <state relative-caret-position="308">
+          <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/domain/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="52" column="33" lean-forward="true" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#604#605#0" expanded="true" />
+            <element signature="e#655#656#0" expanded="true" />
+            <element signature="e#680#681#0" expanded="true" />
+            <element signature="e#713#714#0" expanded="true" />
+            <element signature="e#741#742#0" expanded="true" />
+            <element signature="e#648#649#0" expanded="true" />
+            <element signature="e#684#685#0" expanded="true" />
+            <element signature="e#719#720#0" expanded="true" />
+            <element signature="e#750#751#0" expanded="true" />
+            <element signature="e#798#799#0" expanded="true" />
+            <element signature="e#838#839#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
+            <element signature="e#898#899#0" expanded="true" />
+            <element signature="e#940#941#0" expanded="true" />
+            <element signature="e#974#975#0" expanded="true" />
+            <element signature="e#1012#1013#0" expanded="true" />
+            <element signature="e#1046#1047#0" expanded="true" />
+            <element signature="e#1100#1101#0" expanded="true" />
+            <element signature="e#1146#1147#0" expanded="true" />
+            <element signature="e#1180#1181#0" expanded="true" />
+            <element signature="e#1212#1213#0" expanded="true" />
+            <element signature="e#1260#1261#0" expanded="true" />
+            <element signature="e#1302#1303#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#436#437#0" expanded="true" />
+            <element signature="e#499#500#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -670,8 +829,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="53" column="56" selection-start-line="53" selection-start-column="56" selection-end-line="53" selection-end-column="56" />
+        <state relative-caret-position="568">
+          <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

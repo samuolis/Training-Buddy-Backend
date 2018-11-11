@@ -1,24 +1,16 @@
 package com.google.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.dao.AuthenticationDao;
 import com.google.domain.Authentication;
 import com.google.domain.UserData;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequest;
-import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.net.URI;
 
+import java.util.Date;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -37,18 +29,19 @@ public class AuthenticationService {
 
 
     public UserData saveAuthentication(String authCode){
-        logger.info("save Authentication with auth code " + authCode);
+        logger.info("Save authentication called");
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> resultForUser;
         UserData finalResult = new UserData();
         String finalUrlAccess = ACCESS_TOKEN_URL + authCode + "&access_token=AA|" + CLIENT_ID + "|" + SECRET;
-        logger.info("final acees token adress " + finalUrlAccess);
         ResponseEntity<String> resultForAuthentication;
         resultForAuthentication = restTemplate.getForEntity(finalUrlAccess, String.class);
-        logger.info("Result  " + resultForAuthentication);
         Gson gson = new Gson();
         Authentication authenticationResult = gson.fromJson(resultForAuthentication.getBody(), Authentication.class);
-        logger.info("after first http call access token : " + authenticationResult.getAccessToken());
+        authenticationResult.setCreatedAt(new Date());
+        long timeInMil = authenticationResult.getCreatedAt().getTime();
+        long expirationTimeInMil = timeInMil + authenticationResult.getTokenRefreshTime()*1000;
+        authenticationResult.setExpirationDate(new Date(expirationTimeInMil));
         if (authenticationResult.getAccessToken() != null) {
             try {
                 ofy().save().entity(authenticationResult).now();
@@ -58,12 +51,10 @@ public class AuthenticationService {
             String finalUrlUser = ACCOUNT_KIT_URL + authenticationResult.getAccessToken();
             try{
                 resultForUser = restTemplate.getForEntity(finalUrlUser, String.class);
-                logger.info("FInal Result  " + resultForUser);
                 finalResult = gson.fromJson(resultForUser.getBody(), UserData.class);
             }catch (Exception e){
                 throw e;
             }
-            logger.info("after last call : " + finalResult.getId());
         }
         return finalResult;
     }
