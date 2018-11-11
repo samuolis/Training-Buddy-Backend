@@ -13,8 +13,13 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public User home(@RequestBody User user){
+    public User postUser(@RequestBody User user){
         return userService.saveUser(user);
+    }
+
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
+    public User getUser(@PathVariable String userId){
+        return userService.getUser(userId);
     }
 
 }

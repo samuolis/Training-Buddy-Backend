@@ -2,27 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58989ff0-abdb-49b6-bb1d-13bc9bf33f75" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/domain/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/dao/AuthenticationDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/domain/Authentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/domain/Authentication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/appengine-generated/datastore-indexes-auto.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/SpringScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/SpringScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/dao/AuthenticationDao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/Authentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/Authentication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/service/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/service/AuthenticationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/SpringScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/SpringScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/dao/AuthenticationDao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/domain/Authentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/domain/Authentication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/service/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/service/AuthenticationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/HelloAppEngine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/SpringScreen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/controller/AuthenticationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/Authentication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/Email.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/Phone.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/UserData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/service/AuthenticationService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/service/UserService.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -43,14 +40,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="51" />
-          <entry key="java" value="3002" />
+          <entry key="java" value="3204" />
           <entry key="txt" value="46" />
           <entry key="xml" value="63" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3002" />
+          <entry key="JAVA" value="3204" />
           <entry key="PLAIN_TEXT" value="97" />
           <entry key="XML" value="63" />
         </counts>
@@ -96,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+            <state relative-caret-position="304">
+              <caret line="32" column="43" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -111,12 +108,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+            <state relative-caret-position="458">
+              <caret line="21" column="43" lean-forward="true" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#436#437#0" expanded="true" />
                 <element signature="e#499#500#0" expanded="true" />
+                <element signature="e#621#622#0" expanded="true" />
+                <element signature="e#669#670#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -134,8 +133,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/google/domain/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="52" column="33" lean-forward="true" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
+            <state relative-caret-position="238">
+              <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#575#576#0" expanded="true" />
@@ -215,11 +214,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="568">
-              <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
+            <state relative-caret-position="-70">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -270,12 +269,12 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/controller/AuthenticationController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/google/service/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/google/domain/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/domain/Authentication.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/google/domain/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/google/service/UserService.java" />
       </list>
     </option>
   </component>
@@ -417,7 +416,7 @@
     <property name="ACTIVE_CLOUD_PROJECT_ID" value="trainingbuddy-221215" />
     <property name="ACTIVE_CLOUD_PROJECT_NAME" value="trainingbuddy" />
     <property name="ACTIVE_CLOUD_PROJECT_NUMBER" value="278738625543" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541963931364" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541968849558" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../GitHub/ud859/Lesson_4/00_Conference_Central" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
@@ -771,10 +770,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-70">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="21" column="43" lean-forward="true" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#436#437#0" expanded="true" />
+            <element signature="e#499#500#0" expanded="true" />
+            <element signature="e#621#622#0" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/google/domain/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="52" column="33" lean-forward="true" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
+        <state relative-caret-position="238">
+          <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#575#576#0" expanded="true" />
@@ -805,32 +828,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#436#437#0" expanded="true" />
-            <element signature="e#499#500#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
+        <state relative-caret-position="304">
+          <caret line="32" column="43" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

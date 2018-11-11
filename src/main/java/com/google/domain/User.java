@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.IgnoreLoad;
 
 import java.util.Date;
 
@@ -15,6 +16,7 @@ public class User {
     private String userId;
 
     @Ignore
+    @IgnoreLoad
     private int id;
 
     @SerializedName("fullName")
