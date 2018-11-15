@@ -5,6 +5,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.IgnoreLoad;
+import org.springframework.lang.Nullable;
 
 import java.util.Date;
 
@@ -30,6 +31,17 @@ public class User {
 
     @SerializedName("createdOn")
     private Date createdAt = new Date();
+    
+    @SerializedName("profilePictureIndex")
+    private int profilePictureIndex;
+
+    public int getProfilePictureIndex() {
+        return profilePictureIndex;
+    }
+
+    public void setProfilePictureIndex(int profilePictureIndex) {
+        this.profilePictureIndex = profilePictureIndex;
+    }
 
     public String getUserId() {
         return userId;
