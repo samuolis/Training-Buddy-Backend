@@ -12,7 +12,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 @Service
 public class UserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public User saveUser(User user){
         logger.info("Save user");

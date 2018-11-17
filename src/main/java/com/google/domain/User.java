@@ -31,7 +31,7 @@ public class User {
 
     @SerializedName("createdOn")
     private Date createdAt = new Date();
-    
+
     @SerializedName("profilePictureIndex")
     private int profilePictureIndex;
 

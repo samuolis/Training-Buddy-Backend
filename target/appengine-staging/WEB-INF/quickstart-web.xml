@@ -3,9 +3,9 @@
   <context-param>
     <param-name>org.eclipse.jetty.containerInitializers</param-name>
     <param-value><![CDATA[
-    "ContainerInitializer{org.eclipse.jetty.apache.jsp.JettyJasperInitializer,interested=[],applicable=[],annotated=[]}",
+    "ContainerInitializer{org.springframework.web.SpringServletContainerInitializer,interested=[org.springframework.web.WebApplicationInitializer],applicable=[org.springframework.boot.web.servlet.support.SpringBootServletInitializer, org.springframework.web.context.AbstractContextLoaderInitializer, org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration$JerseyWebApplicationInitializer, org.springframework.web.server.adapter.AbstractReactiveWebInitializer, org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer, com.google.SpringScreen, org.springframework.web.servlet.support.AbstractDispatcherServletInitializer],annotated=[]}",
     "ContainerInitializer{ch.qos.logback.classic.servlet.LogbackServletContainerInitializer,interested=[],applicable=[],annotated=[]}",
-    "ContainerInitializer{org.springframework.web.SpringServletContainerInitializer,interested=[org.springframework.web.WebApplicationInitializer],applicable=[org.springframework.boot.web.servlet.support.SpringBootServletInitializer, org.springframework.web.context.AbstractContextLoaderInitializer, org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration$JerseyWebApplicationInitializer, org.springframework.web.server.adapter.AbstractReactiveWebInitializer, org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer, com.google.SpringScreen, org.springframework.web.servlet.support.AbstractDispatcherServletInitializer],annotated=[]}"]]></param-value>
+    "ContainerInitializer{org.eclipse.jetty.apache.jsp.JettyJasperInitializer,interested=[],applicable=[],annotated=[]}"]]></param-value>
   </context-param>
   <context-param>
     <param-name>org.eclipse.jetty.tlds</param-name>
