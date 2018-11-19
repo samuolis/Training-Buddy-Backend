@@ -2,6 +2,7 @@ package com.google.domain;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,13 +23,39 @@ public class Event {
 
     private String eventLocationName;
 
+    @Index
     private Double eventLocationLongitude;
 
+    @Index
     private Double eventLocationLatitude;
 
+    @Index
+    private String eventLocationCountryCode;
+
+    @Index
     private int eventPlayers;
 
+    @Index
     private Date eventDate;
+
+    @Ignore
+    private Float eventDistance;
+
+    public Float getEventDistance() {
+        return eventDistance;
+    }
+
+    public void setEventDistance(Float eventDistance) {
+        this.eventDistance = eventDistance;
+    }
+
+    public String getEventLocationCountryCode() {
+        return eventLocationCountryCode;
+    }
+
+    public void setEventLocationCountryCode(String eventLocationCountryCode) {
+        this.eventLocationCountryCode = eventLocationCountryCode;
+    }
 
     public Long getEventId() {
         return eventId;
