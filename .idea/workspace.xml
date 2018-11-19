@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58989ff0-abdb-49b6-bb1d-13bc9bf33f75" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/controller/EventController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/controller/EventController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/domain/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/domain/Event.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/controller/EventController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/controller/EventController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/domain/Event.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/service/EventService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/TrainingBackendApp-1.0-SNAPSHOT/WEB-INF/classes/com/google/service/EventService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/controller/EventController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/controller/EventController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/domain/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/domain/Event.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/service/EventService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/com/google/service/EventService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/source-context.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/appengine-staging/WEB-INF/classes/source-context.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -36,7 +24,7 @@
         <counts>
           <entry key="dummy" value="51" />
           <entry key="java" value="3676" />
-          <entry key="kt" value="1005" />
+          <entry key="kt" value="1056" />
           <entry key="txt" value="46" />
           <entry key="xml" value="64" />
         </counts>
@@ -44,7 +32,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="3676" />
-          <entry key="Kotlin" value="1005" />
+          <entry key="Kotlin" value="1056" />
           <entry key="PLAIN_TEXT" value="97" />
           <entry key="XML" value="64" />
         </counts>
@@ -189,7 +177,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="230">
-              <caret line="48" column="59" selection-start-line="48" selection-start-column="59" selection-end-line="48" selection-end-column="59" />
+              <caret line="51" column="16" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
               <folding>
                 <element signature="e#28#219#0" expanded="true" />
               </folding>
@@ -300,7 +288,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="501" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
@@ -399,7 +387,7 @@
     <property name="ACTIVE_CLOUD_PROJECT_ID" value="trainingbuddy-221215" />
     <property name="ACTIVE_CLOUD_PROJECT_NAME" value="trainingbuddy" />
     <property name="ACTIVE_CLOUD_PROJECT_NUMBER" value="278738625543" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542620864760" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542643309120" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../GitHub/ud859/Lesson_4/00_Conference_Central" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -836,7 +824,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="48" column="59" selection-start-line="48" selection-start-column="59" selection-end-line="48" selection-end-column="59" />
+          <caret line="51" column="16" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
           <folding>
             <element signature="e#28#219#0" expanded="true" />
           </folding>

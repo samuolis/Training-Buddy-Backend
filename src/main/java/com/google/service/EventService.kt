@@ -46,15 +46,17 @@ class EventService {
         var filteredEventsList: MutableList<Event> = mutableListOf<Event>()
         eventsList.forEach {
             var distanceBetween = distFrom(latitude, longitude, it.eventLocationLatitude.toFloat(), it.eventLocationLongitude.toFloat())/1000
-            if (distanceBetween <= radius/1000 && it.userId != userId){
+            if (distanceBetween <= radius && it.userId != userId){
                 it.eventDistance = distanceBetween
                 filteredEventsList.add(it)
-                filteredEventsList.sortBy { distanceBetween }
+                filteredEventsList.sortBy({selector(it)})
             }
         }
 
         return filteredEventsList.toList()
     }
+
+    fun selector(event: Event): Float = event.eventDistance
 
     //distance in meters
     fun distFrom(lat1: Float, lng1: Float, lat2: Float, lng2: Float): Float {
