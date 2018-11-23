@@ -7,6 +7,7 @@ import com.googlecode.objectify.annotation.Index;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Event {
@@ -40,6 +41,16 @@ public class Event {
 
     @Ignore
     private Float eventDistance;
+
+    private List<String> eventSignedPlayers;
+
+    public List<String> getEventSignedPlayers() {
+        return eventSignedPlayers;
+    }
+
+    public void setEventSignedPlayers(List<String> eventSignedPlayers) {
+        this.eventSignedPlayers = eventSignedPlayers;
+    }
 
     public Float getEventDistance() {
         return eventDistance;

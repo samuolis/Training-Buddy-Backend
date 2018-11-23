@@ -30,4 +30,16 @@ class EventController {
                             @PathVariable("longitude") longitude: Float): List<Event> {
         return eventService.getAllEventsByLocation(userId, radius, countryCode, latitude, longitude)
     }
+
+    @RequestMapping(value = "/event/{userId}/{eventId}", method = arrayOf(RequestMethod.POST))
+    fun signEventsForUsers(@PathVariable("userId") userId: String,
+                           @PathVariable("eventId") eventId: Long){
+        return eventService.setSignInEventAndUser(userId, eventId)
+    }
+
+    @RequestMapping(value = "/events", method = arrayOf(RequestMethod.POST))
+    fun getEventsByIds(@RequestBody listOfIds: List<Long>): List<Event> {
+        return eventService.getEventsByEventId(listOfIds)
+    }
+
 }

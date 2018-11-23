@@ -1,14 +1,20 @@
 package com.google.service
 
 import com.google.domain.Event
+import com.google.domain.User
+import com.googlecode.objectify.NotFoundException
 import com.googlecode.objectify.ObjectifyService.ofy
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class EventService {
 
     private val logger = LoggerFactory.getLogger(EventService::class.java)
+
+    @Autowired
+    lateinit var userService: UserService
 
     fun saveEvent(event: Event): Event {
         logger.info("Save event")
@@ -45,15 +51,79 @@ class EventService {
         }
         var filteredEventsList: MutableList<Event> = mutableListOf<Event>()
         eventsList.forEach {
-            var distanceBetween = distFrom(latitude, longitude, it.eventLocationLatitude.toFloat(), it.eventLocationLongitude.toFloat())/1000
-            if (distanceBetween <= radius && it.userId != userId){
+            if (it.eventSignedPlayers != null) {
+                if (it.eventSignedPlayers.contains(userId)) {
+                    return@forEach
+                }
+            }
+            var distanceBetween = distFrom(latitude, longitude, it.eventLocationLatitude.toFloat(), it.eventLocationLongitude.toFloat()) / 1000
+            if (distanceBetween <= radius && it.userId != userId) {
                 it.eventDistance = distanceBetween
                 filteredEventsList.add(it)
-                filteredEventsList.sortBy({selector(it)})
+                filteredEventsList.sortBy({ selector(it) })
             }
         }
 
         return filteredEventsList.toList()
+    }
+
+    fun getEventsByEventId(eventIds: List<Long>): List<Event>{
+        try {
+            var event = ofy().load().type(Event::class.java).ids(eventIds).values.toList()
+            return if (event == null) {
+                throw NotFoundException()
+            } else {
+                event
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun setSignInEventAndUser(userId: String, eventId: Long){
+        var event = getEventByEventId(eventId)
+        var user = userService.getUser(userId)
+        if (event.userId == userId) {
+            throw IllegalStateException()
+        }
+        var eventSignedUsers: MutableList<String>? = event.eventSignedPlayers
+        if (eventSignedUsers == null)
+        {
+            eventSignedUsers = mutableListOf()
+        }
+        if (eventSignedUsers.contains(userId)){
+            throw IllegalStateException()
+        }
+
+        var userSignedEvents: MutableList<Long>? = user.signedEventsList
+        if (userSignedEvents == null)
+        {
+            userSignedEvents = mutableListOf()
+        }
+        if (userSignedEvents.contains(eventId)){
+            throw IllegalStateException()
+        }
+        eventSignedUsers.add(userId)
+        event.eventSignedPlayers = eventSignedUsers
+        saveEvent(event)
+
+        userSignedEvents.add(eventId)
+        user.signedEventsList = userSignedEvents
+        userService.saveUser(user)
+    }
+
+    fun getEventByEventId(eventId: Long): Event{
+        logger.info("Get all events by ids : " + eventId.toString())
+        try {
+            var event = ofy().cache(false).load().type(Event::class.java).id(eventId).now()
+            return if (event == null) {
+                throw NotFoundException()
+            } else {
+                event
+            }
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     fun selector(event: Event): Float = event.eventDistance

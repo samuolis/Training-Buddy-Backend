@@ -8,6 +8,7 @@ import com.googlecode.objectify.annotation.IgnoreLoad;
 import org.springframework.lang.Nullable;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User {
@@ -34,6 +35,16 @@ public class User {
 
     @SerializedName("profilePictureIndex")
     private int profilePictureIndex;
+
+    private List<Long> signedEventsList;
+
+    public List<Long> getSignedEventsList() {
+        return signedEventsList;
+    }
+
+    public void setSignedEventsList(List<Long> signedEventsList) {
+        this.signedEventsList = signedEventsList;
+    }
 
     public int getProfilePictureIndex() {
         return profilePictureIndex;
