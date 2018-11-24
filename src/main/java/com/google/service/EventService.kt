@@ -112,6 +112,34 @@ class EventService {
         userService.saveUser(user)
     }
 
+    fun unsignEvent(userId: String, eventId: Long){
+        var event = getEventByEventId(eventId)
+        var user = userService.getUser(userId)
+        if (event.userId == userId) {
+            logger.info("UserId is equal to : " + userId)
+            throw IllegalStateException()
+        }
+        var eventSignedUsers: MutableList<String>? = event.eventSignedPlayers
+        if (eventSignedUsers == null)
+        {
+            logger.info("eventsigned users is null")
+            throw IllegalStateException()
+        }
+
+        var userSignedEvents: MutableList<Long>? = user.signedEventsList
+        if (userSignedEvents == null)
+        {
+            throw IllegalStateException()
+        }
+        eventSignedUsers.remove(userId)
+        event.eventSignedPlayers = eventSignedUsers
+        saveEvent(event)
+
+        userSignedEvents.remove(eventId)
+        user.signedEventsList = userSignedEvents
+        userService.saveUser(user)
+    }
+
     fun getEventByEventId(eventId: Long): Event{
         logger.info("Get all events by ids : " + eventId.toString())
         try {

@@ -37,6 +37,12 @@ class EventController {
         return eventService.setSignInEventAndUser(userId, eventId)
     }
 
+    @RequestMapping(value = "/event/delete/{userId}/{eventId}", method = arrayOf(RequestMethod.POST))
+    fun unsignEventsForUsers(@PathVariable("userId") userId: String,
+                           @PathVariable("eventId") eventId: Long){
+        return eventService.unsignEvent(userId, eventId)
+    }
+
     @RequestMapping(value = "/events", method = arrayOf(RequestMethod.POST))
     fun getEventsByIds(@RequestBody listOfIds: List<Long>): List<Event> {
         return eventService.getEventsByEventId(listOfIds)
