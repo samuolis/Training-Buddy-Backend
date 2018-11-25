@@ -16,8 +16,14 @@ class EventService {
     @Autowired
     lateinit var userService: UserService
 
+    @Autowired
+    lateinit var notificationService: NotificationService
+
     fun saveEvent(event: Event): Event {
         logger.info("Save event")
+        if (event.signedUserId != null) {
+            notificationService.sendEventSignNotification(event.signedUserId, event.userId)
+        }
         try {
             ofy().save().entity(event).now()
             return event
@@ -105,6 +111,7 @@ class EventService {
         }
         eventSignedUsers.add(userId)
         event.eventSignedPlayers = eventSignedUsers
+        event.signedUserId = userId
         saveEvent(event)
 
         userSignedEvents.add(eventId)

@@ -1,10 +1,9 @@
 package com.google.domain;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Ignore;
-import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
@@ -42,7 +41,18 @@ public class Event {
     @Ignore
     private Float eventDistance;
 
+    @Ignore
+    private String signedUserId;
+
     private List<String> eventSignedPlayers;
+
+    public String getSignedUserId() {
+        return signedUserId;
+    }
+
+    public void setSignedUserId(String signedUserId) {
+        this.signedUserId = signedUserId;
+    }
 
     public List<String> getEventSignedPlayers() {
         return eventSignedPlayers;

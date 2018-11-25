@@ -38,6 +38,17 @@ public class User {
 
     private List<Long> signedEventsList;
 
+    @SerializedName("userFcmToken")
+    private String userFcmToken;
+
+    public String getUserFcmToken() {
+        return userFcmToken;
+    }
+
+    public void setUserFcmToken(String userFcmToken) {
+        this.userFcmToken = userFcmToken;
+    }
+
     public List<Long> getSignedEventsList() {
         return signedEventsList;
     }
