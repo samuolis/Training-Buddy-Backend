@@ -48,4 +48,9 @@ class EventController {
         return eventService.getEventsByEventId(listOfIds)
     }
 
+    @RequestMapping(value = "/event/{eventId}", method = arrayOf(RequestMethod.DELETE))
+    fun deleteEventById(@PathVariable("eventId") eventId: Long) {
+        return eventService.removeEvent(eventId)
+    }
+
 }

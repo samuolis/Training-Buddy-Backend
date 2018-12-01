@@ -37,6 +37,15 @@ class EventService {
 
     }
 
+    fun removeEvent(eventId: Long){
+        logger.info("delete event : " + eventId)
+        try {
+            ofy().delete().type(Event::class.java).id(eventId)
+        }catch (e: Exception){
+            throw e
+        }
+    }
+
     fun getAllEventsByUser(userId: String): List<Event> {
         logger.info("Get all events : " + userId)
         var eventsList: List<Event>
