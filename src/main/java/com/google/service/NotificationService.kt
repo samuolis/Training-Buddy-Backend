@@ -1,5 +1,6 @@
 package com.google.service
 
+import com.google.domain.Event
 import com.google.domain.Notification
 import com.google.domain.NotificationObject
 import com.google.gson.Gson
@@ -18,12 +19,12 @@ class NotificationService {
     val URL = "https://fcm.googleapis.com/fcm/send"
     val FCM_KEY = "key=AAAA4BV3ACE:APA91bEM8POgLbKRegHvC---F5X6YN9l8LuoFrThW8CwRMa2oXWLA3dDLu_g3rI8UWc-UekEhWO4nT1L4tNbPPxcxvy9Rb1aIUnNUtnH2l5ua21VO0i8i0l-v95AXThyS0EmX4iAPhGy"
 
-    fun sendEventSignNotification(signedUserId: String?, eventHolderUserId: String?){
-        var signedUser = userService.getUser(signedUserId)
-        var eventHolderUser = userService.getUser(eventHolderUserId)
+    fun sendEventSignNotification(signedUserId: String?, event: Event){
+        var signedUser = userService.getUser(signedUserId!!)
+        var eventHolderUser = userService.getUser(event.userId!!)
         var restTemplate = RestTemplate()
         val headers = HttpHeaders()
-        var notification = Notification("Your event was signed by :", signedUser.fullName, null)
+        var notification = Notification(event.eventName + " signed by", signedUser.fullName, null)
         var notificationObject = NotificationObject(eventHolderUser.userFcmToken, notification)
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON))
         headers.add(HttpHeaders.AUTHORIZATION, FCM_KEY)

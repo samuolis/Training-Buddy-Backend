@@ -22,7 +22,11 @@ class EventService {
     fun saveEvent(event: Event): Event {
         logger.info("Save event")
         if (event.signedUserId != null) {
-            notificationService.sendEventSignNotification(event.signedUserId, event.userId)
+            notificationService.sendEventSignNotification(event.signedUserId, event)
+        } else if (event.eventSignedPlayers == null){
+            var signedUserIdsList: MutableList<String>? = mutableListOf()
+            signedUserIdsList?.add(event.userId)
+            event.eventSignedPlayers = signedUserIdsList
         }
         try {
             ofy().save().entity(event).now()
