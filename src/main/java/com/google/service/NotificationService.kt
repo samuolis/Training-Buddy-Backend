@@ -17,7 +17,7 @@ class NotificationService {
     lateinit var userService: UserService
 
     val URL = "https://fcm.googleapis.com/fcm/send"
-    val FCM_KEY = "key=AAAA4BV3ACE:APA91bEM8POgLbKRegHvC---F5X6YN9l8LuoFrThW8CwRMa2oXWLA3dDLu_g3rI8UWc-UekEhWO4nT1L4tNbPPxcxvy9Rb1aIUnNUtnH2l5ua21VO0i8i0l-v95AXThyS0EmX4iAPhGy"
+    val FCM_KEY = "key=AAAANibJ03I:APA91bHPLIhuYMMgHUoUzhAMeR1MYkYJrMZHt1Eo3T1dbvzjjyEUygLevTpHIbuuiYkOLbC_dodMrJlxu1b_DwEO9cb9PMjmJyZdE6fJLM7C1P6-JyMu_b6i1J90UeFizm7nfIMOcYCe"
 
     fun sendEventSignNotification(signedUserId: String?, event: Event){
         var signedUser = userService.getUser(signedUserId!!)
