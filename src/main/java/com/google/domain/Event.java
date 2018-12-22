@@ -1,9 +1,6 @@
 package com.google.domain;
 
 import com.googlecode.objectify.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;

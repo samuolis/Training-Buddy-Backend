@@ -1,9 +1,3 @@
-com\google\service\AuthenticationService.class
 com\google\SpringScreen.class
-com\google\domain\Phone.class
 com\google\domain\User.class
-com\google\domain\UserData.class
-com\google\controller\AuthenticationController.class
-com\google\domain\Email.class
 com\google\HelloAppEngine.class
-com\google\domain\Authentication.class

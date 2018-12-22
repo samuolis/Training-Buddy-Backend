@@ -27,9 +27,6 @@ public class User {
     @SerializedName("email")
     private String email;
 
-    @SerializedName("phoneNumber")
-    private String phoneNumber;
-
     @SerializedName("createdOn")
     private Date createdAt = new Date();
 
@@ -95,14 +92,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public Date getCreatedAt() {

@@ -13,8 +13,8 @@ class EventController {
 
 
     @RequestMapping(value = "/event", method = arrayOf(RequestMethod.POST))
-    fun postEvent(@RequestBody event: Event): Event {
-        return eventService.saveEvent(event)
+    fun postEvent(@RequestBody event: Event, @RequestHeader("authorization-code") authCode: String): Event {
+        return eventService.createEvent(event, authCode)
     }
 
     @RequestMapping(value = "/event/{userId}", method = arrayOf(RequestMethod.GET))
@@ -33,14 +33,16 @@ class EventController {
 
     @RequestMapping(value = "/event/{userId}/{eventId}", method = arrayOf(RequestMethod.POST))
     fun signEventsForUsers(@PathVariable("userId") userId: String,
-                           @PathVariable("eventId") eventId: Long){
-        return eventService.setSignInEventAndUser(userId, eventId)
+                           @PathVariable("eventId") eventId: Long,
+                           @RequestHeader("authorization-code") authCode: String){
+        return eventService.setSignInEventAndUser(userId, eventId, authCode)
     }
 
     @RequestMapping(value = "/event/delete/{userId}/{eventId}", method = arrayOf(RequestMethod.POST))
     fun unsignEventsForUsers(@PathVariable("userId") userId: String,
-                           @PathVariable("eventId") eventId: Long){
-        return eventService.unsignEvent(userId, eventId)
+                             @PathVariable("eventId") eventId: Long,
+                             @RequestHeader("authorization-code") authCode: String){
+        return eventService.unsignEvent(userId, eventId, authCode)
     }
 
     @RequestMapping(value = "/events", method = arrayOf(RequestMethod.POST))
@@ -49,8 +51,9 @@ class EventController {
     }
 
     @RequestMapping(value = "/event/{eventId}", method = arrayOf(RequestMethod.DELETE))
-    fun deleteEventById(@PathVariable("eventId") eventId: Long) {
-        return eventService.removeEvent(eventId)
+    fun deleteEventById(@PathVariable("eventId") eventId: Long,
+                        @RequestHeader("authorization-code") authCode: String) {
+        return eventService.removeEvent(eventId, authCode)
     }
 
 }

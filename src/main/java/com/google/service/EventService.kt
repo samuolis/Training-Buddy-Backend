@@ -17,7 +17,19 @@ class EventService {
     lateinit var userService: UserService
 
     @Autowired
+    lateinit var authenticationService: AuthenticationService
+
+    @Autowired
     lateinit var notificationService: NotificationService
+
+    fun createEvent(event: Event, authCode: String):Event {
+        logger.info("Create event")
+        if (authenticationService.validateUser(authCode)){
+            return saveEvent(event)
+        } else{
+            throw IllegalAccessException()
+        }
+    }
 
     fun saveEvent(event: Event): Event {
         logger.info("Save event")
@@ -34,15 +46,18 @@ class EventService {
         } catch (e: Exception) {
             throw e
         }
-
     }
 
-    fun removeEvent(eventId: Long){
+    fun removeEvent(eventId: Long, authCode: String){
         logger.info("delete event : " + eventId)
-        try {
-            ofy().delete().type(Event::class.java).id(eventId)
-        }catch (e: Exception){
-            throw e
+        if (authenticationService.validateUser(authCode)){
+            try {
+                ofy().delete().type(Event::class.java).id(eventId)
+            }catch (e: Exception){
+                throw e
+            }
+        } else{
+            throw IllegalAccessException()
         }
     }
 
@@ -60,6 +75,7 @@ class EventService {
 
     fun getAllEventsByLocation(userId: String, radius: Float, countryCode: String, latitude: Float, longitude: Float): List<Event> {
         logger.info("Get all events : " + countryCode + "lat : " + latitude + "longt : " + longitude + "radius : " + radius)
+
         var eventsList: List<Event>
         try {
             eventsList = ofy().load().type<Event>(Event::class.java)
@@ -71,7 +87,7 @@ class EventService {
         var filteredEventsList: MutableList<Event> = mutableListOf<Event>()
         eventsList.forEach {
             if (it.eventSignedPlayers != null) {
-                if (it.eventSignedPlayers.contains(userId)) {
+                if (it.eventSignedPlayers.contains(userId) || it.eventSignedPlayers.size == it.eventPlayers) {
                     return@forEach
                 }
             }
@@ -99,65 +115,72 @@ class EventService {
         }
     }
 
-    fun setSignInEventAndUser(userId: String, eventId: Long){
-        var event = getEventByEventId(eventId)
-        var user = userService.getUser(userId)
-        if (event.userId == userId) {
-            throw IllegalStateException()
-        }
-        var eventSignedUsers: MutableList<String>? = event.eventSignedPlayers
-        if (eventSignedUsers == null)
-        {
-            eventSignedUsers = mutableListOf()
-        }
-        if (eventSignedUsers.contains(userId)){
-            throw IllegalStateException()
-        }
+    fun setSignInEventAndUser(userId: String, eventId: Long, authCode: String){
+        if (authenticationService.validateUser(authCode)) {
+            var event = getEventByEventId(eventId)
+            var user = userService.getUser(userId)
+            if (event.userId == userId) {
+                throw IllegalStateException()
+            }
+            if (event.eventSignedPlayers.size == event.eventPlayers) {
+                throw IllegalStateException()
+            }
+            var eventSignedUsers: MutableList<String>? = event.eventSignedPlayers
+            if (eventSignedUsers == null) {
+                eventSignedUsers = mutableListOf()
+            }
+            if (eventSignedUsers.contains(userId)) {
+                throw IllegalStateException()
+            }
 
-        var userSignedEvents: MutableList<Long>? = user.signedEventsList
-        if (userSignedEvents == null)
-        {
-            userSignedEvents = mutableListOf()
-        }
-        if (userSignedEvents.contains(eventId)){
-            throw IllegalStateException()
-        }
-        eventSignedUsers.add(userId)
-        event.eventSignedPlayers = eventSignedUsers
-        event.signedUserId = userId
-        saveEvent(event)
+            var userSignedEvents: MutableList<Long>? = user.signedEventsList
+            if (userSignedEvents == null) {
+                userSignedEvents = mutableListOf()
+            }
+            if (userSignedEvents.contains(eventId)) {
+                throw IllegalStateException()
+            }
+            eventSignedUsers.add(userId)
+            event.eventSignedPlayers = eventSignedUsers
+            event.signedUserId = userId
+            saveEvent(event)
 
-        userSignedEvents.add(eventId)
-        user.signedEventsList = userSignedEvents
-        userService.saveUser(user)
+            userSignedEvents.add(eventId)
+            user.signedEventsList = userSignedEvents
+            userService.saveUser(user)
+        } else {
+            throw IllegalAccessException()
+        }
     }
 
-    fun unsignEvent(userId: String, eventId: Long){
-        var event = getEventByEventId(eventId)
-        var user = userService.getUser(userId)
-        if (event.userId == userId) {
-            logger.info("UserId is equal to : " + userId)
-            throw IllegalStateException()
-        }
-        var eventSignedUsers: MutableList<String>? = event.eventSignedPlayers
-        if (eventSignedUsers == null)
-        {
-            logger.info("eventsigned users is null")
-            throw IllegalStateException()
-        }
+    fun unsignEvent(userId: String, eventId: Long, authCode: String){
+        if (authenticationService.validateUser(authCode)) {
+            var event = getEventByEventId(eventId)
+            var user = userService.getUser(userId)
+            if (event.userId == userId) {
+                logger.info("UserId is equal to : " + userId)
+                throw IllegalStateException()
+            }
+            var eventSignedUsers: MutableList<String>? = event.eventSignedPlayers
+            if (eventSignedUsers == null) {
+                logger.info("eventsigned users is null")
+                throw IllegalStateException()
+            }
 
-        var userSignedEvents: MutableList<Long>? = user.signedEventsList
-        if (userSignedEvents == null)
-        {
-            throw IllegalStateException()
-        }
-        eventSignedUsers.remove(userId)
-        event.eventSignedPlayers = eventSignedUsers
-        saveEvent(event)
+            var userSignedEvents: MutableList<Long>? = user.signedEventsList
+            if (userSignedEvents == null) {
+                throw IllegalStateException()
+            }
+            eventSignedUsers.remove(userId)
+            event.eventSignedPlayers = eventSignedUsers
+            saveEvent(event)
 
-        userSignedEvents.remove(eventId)
-        user.signedEventsList = userSignedEvents
-        userService.saveUser(user)
+            userSignedEvents.remove(eventId)
+            user.signedEventsList = userSignedEvents
+            userService.saveUser(user)
+        } else {
+            throw IllegalAccessException()
+        }
     }
 
     fun getEventByEventId(eventId: Long): Event{
