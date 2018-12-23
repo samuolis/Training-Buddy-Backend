@@ -1,3 +1,4 @@
 com\google\SpringScreen.class
 com\google\domain\User.class
 com\google\HelloAppEngine.class
+com\google\domain\CommentMessage.class

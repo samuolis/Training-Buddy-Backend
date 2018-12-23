@@ -1,5 +1,6 @@
 package com.google.controller
 
+import com.google.domain.CommentMessage
 import com.google.domain.Event
 import com.google.service.EventService
 import org.springframework.beans.factory.annotation.Autowired
@@ -50,10 +51,26 @@ class EventController {
         return eventService.getEventsByEventId(listOfIds)
     }
 
-    @RequestMapping(value = "/event/{eventId}", method = arrayOf(RequestMethod.DELETE))
+    @RequestMapping(value = "/event/delete/{eventId}", method = arrayOf(RequestMethod.DELETE))
     fun deleteEventById(@PathVariable("eventId") eventId: Long,
                         @RequestHeader("authorization-code") authCode: String) {
         return eventService.removeEvent(eventId, authCode)
+    }
+
+    @RequestMapping(value = "/event/one/{eventId}", method = arrayOf(RequestMethod.GET))
+    fun getEventByItsId(@PathVariable("eventId") eventId: Long): Event {
+        return eventService.getEventByEventId(eventId)
+    }
+
+    @RequestMapping(value = "/event/comment", method = arrayOf(RequestMethod.POST))
+    fun createComment(@RequestBody commentMessage: CommentMessage,
+                      @RequestHeader("authorization-code") authCode: String): CommentMessage? {
+        return eventService.createCommentMessage(commentMessage, authCode)
+    }
+
+    @RequestMapping(value = "/event/comments", method = arrayOf(RequestMethod.POST))
+    fun getEventCommentsByIds(@RequestBody listOfIds: List<Long>): List<CommentMessage> {
+        return eventService.getAllMessagesByMessageId(listOfIds)
     }
 
 }

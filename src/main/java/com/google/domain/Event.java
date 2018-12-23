@@ -43,6 +43,16 @@ public class Event {
 
     private List<String> eventSignedPlayers;
 
+    private List<Long> eventComments;
+
+    public List<Long> getEventComments() {
+        return eventComments;
+    }
+
+    public void setEventComments(List<Long> eventComments) {
+        this.eventComments = eventComments;
+    }
+
     public String getSignedUserId() {
         return signedUserId;
     }

@@ -1,7 +1,9 @@
 package com.google.service
 
+import com.google.domain.CommentMessage
 import com.google.domain.Event
 import com.google.domain.User
+import com.googlecode.objectify.Key
 import com.googlecode.objectify.NotFoundException
 import com.googlecode.objectify.ObjectifyService.ofy
 import org.slf4j.LoggerFactory
@@ -184,13 +186,59 @@ class EventService {
     }
 
     fun getEventByEventId(eventId: Long): Event{
-        logger.info("Get all events by ids : " + eventId.toString())
+        logger.info("Get eventsby ids: " + eventId.toString())
         try {
             var event = ofy().cache(false).load().type(Event::class.java).id(eventId).now()
             return if (event == null) {
                 throw NotFoundException()
             } else {
                 event
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun createCommentMessage(commentMessage: CommentMessage, authCode: String): CommentMessage? {
+        logger.info("create comment: " + commentMessage.messageId)
+        if (authenticationService.validateUser(authCode)) {
+
+            var userId = commentMessage.userId
+            var user = userService.getUser(userId)
+            commentMessage.messageUserName = user.fullName
+            var message: Key<CommentMessage>? = null
+            try {
+                message = ofy().save().entity(commentMessage).now()
+            } catch (e: Exception) {
+                throw e
+            }
+            logger.info("message id : " + message.id)
+            if (message.id != null) {
+                var event = getEventByEventId(commentMessage.eventId)
+                var eventComments: MutableList<Long>? = event.eventComments
+                if (eventComments == null) {
+                    eventComments = mutableListOf()
+                }
+                eventComments.add(message.id)
+                event.eventComments = eventComments
+                saveEvent(event)
+                return commentMessage
+            } else {
+                return null
+            }
+        } else{
+            throw IllegalAccessException()
+        }
+    }
+
+    fun getAllMessagesByMessageId(listOfMessageIds: List<Long>): List<CommentMessage>{
+        logger.info("load event comments")
+        try {
+            var commentMessages = ofy().load().type(CommentMessage::class.java).ids(listOfMessageIds).values.toList()
+            return if (commentMessages == null) {
+                throw NotFoundException()
+            } else {
+                commentMessages
             }
         } catch (e: Exception) {
             throw e
