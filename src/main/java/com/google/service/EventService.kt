@@ -1,14 +1,33 @@
 package com.google.service
 
+import com.google.cloud.tasks.v2beta3.CloudTasksClient
+import com.google.cloud.tasks.v2beta3.AppEngineHttpRequest
+import com.google.cloud.tasks.v2beta3.HttpMethod
+import com.google.cloud.tasks.v2beta3.QueueName
+import com.google.cloud.tasks.v2beta3.Task
 import com.google.domain.CommentMessage
 import com.google.domain.Event
 import com.google.domain.User
+import com.google.protobuf.ByteString
 import com.googlecode.objectify.Key
 import com.googlecode.objectify.NotFoundException
 import com.googlecode.objectify.ObjectifyService.ofy
+import org.apache.http.entity.ContentType
+import org.omg.CORBA.Object
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Service
+import org.springframework.util.MultiValueMap
+import org.springframework.web.client.RestTemplate
+import org.springframework.web.util.UriComponentsBuilder
+import org.springframework.web.util.UriComponents
+import java.nio.charset.Charset
+
+
+
+
 
 @Service
 class EventService {
@@ -24,6 +43,8 @@ class EventService {
     @Autowired
     lateinit var notificationService: NotificationService
 
+    private val SERVER_URL = "https://training-222106.appspot.com/"
+
     fun createEvent(event: Event, authCode: String):Event {
         logger.info("Create event")
         if (authenticationService.validateUser(authCode)){
@@ -36,7 +57,45 @@ class EventService {
     fun saveEvent(event: Event): Event {
         logger.info("Save event")
         if (event.signedUserId != null) {
-            notificationService.sendEventSignNotification(event.signedUserId, event)
+            //notificationService.sendEventSignNotification(event.signedUserId, event)
+//            var restTemplate = RestTemplate()
+//            val headers = HttpHeaders()
+//            headers.set("user-id", event.signedUserId)
+//            val entity = HttpEntity<Event>(event, headers)
+//            logger.info("before notification")
+//            restTemplate.exchange(SERVER_URL, HttpMethod.POST, entity ,String::class.java)
+//            logger.info("after notification")
+
+            CloudTasksClient.create().use { client ->
+
+                // Variables provided by the CLI.
+                var projectId = "training-222106";
+                var queueName = "training";
+                var location = "europe-west3";
+                // payload = "hello";
+
+                // Construct the fully qualified queue name.
+                val queuePath = QueueName.of(projectId, location, queueName).toString()
+
+                val payload = event.toString()
+                logger.info("Payload " + payload)
+
+                // Construct the task body.
+                val taskBuilder = Task
+                        .newBuilder()
+                        .setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
+                                .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
+                                .putHeaders("Content-Type", "application/json")
+                                .setRelativeUri("/notification/event")
+                                .setHttpMethod(HttpMethod.POST)
+                                .build())
+                        .build()
+
+                // Send create task request.
+                val task = client.createTask(queuePath, taskBuilder)
+                System.out.println("Task created: " + task.getName())
+            }
+
         } else if (event.eventSignedPlayers == null){
             var signedUserIdsList: MutableList<String>? = mutableListOf()
             signedUserIdsList?.add(event.userId)
@@ -222,6 +281,36 @@ class EventService {
                 eventComments.add(message.id)
                 event.eventComments = eventComments
                 saveEvent(event)
+                CloudTasksClient.create().use { client ->
+
+                    // Variables provided by the CLI.
+                    var projectId = "training-222106";
+                    var queueName = "training";
+                    var location = "europe-west3";
+                    // payload = "hello";
+
+                    // Construct the fully qualified queue name.
+                    val queuePath = QueueName.of(projectId, location, queueName).toString()
+
+                    val payload = commentMessage.toString()
+                    logger.info("Payload " + payload)
+
+                    // Construct the task body.
+                    val taskBuilder = Task
+                            .newBuilder()
+                            .setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
+                                    .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
+                                    .putHeaders("Content-Type", "application/json")
+                                    .setRelativeUri("/notification/comment")
+                                    .setHttpMethod(HttpMethod.POST)
+                                    .build())
+                            .build()
+
+                    // Send create task request.
+                    val task = client.createTask(queuePath, taskBuilder)
+                    System.out.println("Task created: " + task.getName())
+                }
+                logger.info("task created: " + commentMessage.messageId)
                 return commentMessage
             } else {
                 return null

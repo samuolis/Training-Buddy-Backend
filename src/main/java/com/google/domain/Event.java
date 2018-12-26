@@ -2,6 +2,9 @@ package com.google.domain;
 
 import com.googlecode.objectify.annotation.*;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -155,5 +158,37 @@ public class Event {
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
+    }
+
+    private String getEventDateToString(){
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        return formatter.format(this.eventDate);
+    }
+
+    private ArrayList<String> getSignedPlayersInString(){
+        ArrayList<String> newArrayList = new ArrayList<String>();
+        this.eventSignedPlayers.forEach((userIdForEach) -> {
+            newArrayList.add("\"" + userIdForEach + "\"");
+        });
+        return newArrayList;
+    }
+
+    private ArrayList<String> getArrayCommentsInString(){
+        ArrayList<String> newArrayList = new ArrayList<String>();
+        this.eventComments.forEach((commentId) -> {
+            newArrayList.add("\"" + commentId + "\"");
+        });
+        return newArrayList;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + "\"eventId\": \"" + this.eventId + "\", \"userId\": \"" + this.userId +
+                "\", \"eventDescription\": \"" + this.eventDescription + "\", \"eventLocationName\": \"" + this.eventLocationName +
+                "\", \"eventLocationLongitude\": \"" + this.eventLocationLongitude + "\", \"eventLocationLatitude\": \"" + this.eventLocationLatitude +
+                "\", \"eventLocationCountryCode\": \"" + this.eventLocationCountryCode + "\", \"eventPlayers\": \"" + this.eventPlayers +
+                "\", \"eventDate\": \"" + getEventDateToString() + "\", \"eventDistance\": \"" + this.eventDistance +
+                "\", \"signedUserId\": \"" + this.signedUserId + "\", \"eventSignedPlayers\": " + getSignedPlayersInString().toString() +
+                ", \"eventComments\": " + getArrayCommentsInString() + ", \"eventName\": \"" + this.eventName + "\"}";
     }
 }

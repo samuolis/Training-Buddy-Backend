@@ -68,4 +68,11 @@ public class CommentMessage {
     public void setMessageTime(String messageTime) {
         this.messageTime = messageTime;
     }
+
+    @Override
+    public String toString() {
+        return "{" + "\"eventId\": \"" + this.eventId + "\", \"userId\": \"" + this.userId +
+                "\", \"messageId\": \"" + this.messageId + "\", \"messageText\": \"" + this.messageText +
+                "\", \"messageTime\": \"" + this.messageTime + "\", \"messageUserName\": \"" + this.messageUserName + "\"}";
+    }
 }
