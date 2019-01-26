@@ -24,9 +24,7 @@ import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 import org.springframework.web.util.UriComponents
 import java.nio.charset.Charset
-
-
-
+import java.util.*
 
 
 @Service
@@ -57,14 +55,6 @@ class EventService {
     fun saveEvent(event: Event): Event {
         logger.info("Save event")
         if (event.signedUserId != null) {
-            //notificationService.sendEventSignNotification(event.signedUserId, event)
-//            var restTemplate = RestTemplate()
-//            val headers = HttpHeaders()
-//            headers.set("user-id", event.signedUserId)
-//            val entity = HttpEntity<Event>(event, headers)
-//            logger.info("before notification")
-//            restTemplate.exchange(SERVER_URL, HttpMethod.POST, entity ,String::class.java)
-//            logger.info("after notification")
 
             CloudTasksClient.create().use { client ->
 
@@ -126,8 +116,11 @@ class EventService {
         logger.info("Get all events : " + userId)
         var eventsList: List<Event>
         try {
-            eventsList = ofy().load().type<Event>(Event::class.java).filter("userId", userId).list()
-            return eventsList
+            eventsList = ofy().load().type<Event>(Event::class.java).filter("userId", userId).toList()
+            var filteredEventList = eventsList.filter {
+                it.eventDate.after(Date(System.currentTimeMillis() + 1000 * 3600 * 2))
+            }
+            return filteredEventList
         } catch (e: Exception) {
             throw e
         }
@@ -145,31 +138,28 @@ class EventService {
         } catch (e: Exception) {
             throw e
         }
-        var filteredEventsList: MutableList<Event> = mutableListOf<Event>()
-        eventsList.forEach {
-            if (it.eventSignedPlayers != null) {
-                if (it.eventSignedPlayers.contains(userId) || it.eventSignedPlayers.size == it.eventPlayers) {
-                    return@forEach
-                }
-            }
-            var distanceBetween = distFrom(latitude, longitude, it.eventLocationLatitude.toFloat(), it.eventLocationLongitude.toFloat()) / 1000
-            if (distanceBetween <= radius && it.userId != userId) {
-                it.eventDistance = distanceBetween
-                filteredEventsList.add(it)
-                filteredEventsList.sortBy({ selector(it) })
-            }
+        var filteredEventsList = eventsList.filter {
+            var distanceBetween = distFrom(latitude, longitude, it.eventLocationLatitude.toFloat(),
+                    it.eventLocationLongitude.toFloat()) / 1000
+            it.eventDistance = distanceBetween
+            it.eventSignedPlayers != null && !it.eventSignedPlayers.contains(userId) &&
+                    it.eventSignedPlayers.size < it.eventPlayers && distanceBetween <= radius && it.userId != userId &&
+                    it.eventDate.after(Date(System.currentTimeMillis() + 1000 * 3600 * 2))
+        }.sortedBy {
+            it.eventDistance
         }
-
-        return filteredEventsList.toList()
+        return filteredEventsList
     }
 
-    fun getEventsByEventId(eventIds: List<Long>): List<Event>{
+    fun getEventsByEventIds(eventIds: List<Long>): List<Event>{
         try {
             var event = ofy().load().type(Event::class.java).ids(eventIds).values.toList()
             return if (event == null) {
                 throw NotFoundException()
             } else {
-                event
+                event.filter {
+                    it.eventDate.after(Date(System.currentTimeMillis() + 1000 * 3600 * 2))
+                }
             }
         } catch (e: Exception) {
             throw e

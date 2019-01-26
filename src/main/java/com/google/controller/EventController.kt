@@ -48,7 +48,7 @@ class EventController {
 
     @RequestMapping(value = "/events", method = arrayOf(RequestMethod.POST))
     fun getEventsByIds(@RequestBody listOfIds: List<Long>): List<Event> {
-        return eventService.getEventsByEventId(listOfIds)
+        return eventService.getEventsByEventIds(listOfIds)
     }
 
     @RequestMapping(value = "/event/delete/{eventId}", method = arrayOf(RequestMethod.DELETE))
