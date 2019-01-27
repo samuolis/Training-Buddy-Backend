@@ -175,6 +175,9 @@ public class Event {
 
     private ArrayList<String> getArrayCommentsInString(){
         ArrayList<String> newArrayList = new ArrayList<String>();
+        if (eventComments == null){
+            eventComments = new ArrayList<Long>();
+        }
         this.eventComments.forEach((commentId) -> {
             newArrayList.add("\"" + commentId + "\"");
         });

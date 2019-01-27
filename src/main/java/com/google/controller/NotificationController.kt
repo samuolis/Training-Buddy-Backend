@@ -23,4 +23,9 @@ class NotificationController {
     fun comment (@RequestBody commentMessage: CommentMessage) {
         return notificationService.sendCommentNotification(commentMessage)
     }
+
+    @RequestMapping(value = "/notification/refresh", method = arrayOf(RequestMethod.POST))
+    fun refresh (@RequestBody event: Event) {
+        return notificationService.sendRefreshNotification(event)
+    }
 }

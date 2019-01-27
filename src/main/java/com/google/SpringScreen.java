@@ -28,6 +28,7 @@ public class SpringScreen extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        ObjectifyService.init();
         ObjectifyService.register(User.class);
         ObjectifyService.register(Event.class);
         ObjectifyService.register(CommentMessage.class);

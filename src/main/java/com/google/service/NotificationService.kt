@@ -30,8 +30,13 @@ class NotificationService {
 
     private val logger = LoggerFactory.getLogger(NotificationService::class.java)
 
+    private val NOTIFICATION_EVENT_KEY = "notification_event"
+
+    private val EVENT_ID_KEY = "event_id"
+
     fun sendEventSignNotification(event: Event){
         logger.info("In Notification")
+        sendRefreshNotification(event)
         var signedUser = userService.getUser(event.signedUserId!!)
         var eventHolderUser = userService.getUser(event.userId!!)
 
@@ -52,9 +57,11 @@ class NotificationService {
     }
 
     fun sendCommentNotification(commentMessage: CommentMessage){
+        logger.info("send Comment notification")
         var event = eventService.getEventByEventId(commentMessage.eventId)
         val map = HashMap<String, String>()
-        map["eventId"] = event.eventId.toString()
+        map[NOTIFICATION_EVENT_KEY] = "comment"
+        map[EVENT_ID_KEY] = event.eventId.toString()
         var message = Message.builder()
                 .setTopic(commentMessage.eventId.toString())
                 .putAllData(map)
@@ -65,9 +72,23 @@ class NotificationService {
                                 .setTitle(event.eventName)
                                 .setBody("Commented by " + commentMessage.messageUserName)
                                 .setColor("#f45342")
-                                .setTag(event.eventId.toString())
                                 .build())
                         .build())
+                .build()
+        FirebaseMessaging.getInstance().send(message)
+
+    }
+
+    fun sendRefreshNotification(event: Event){
+        logger.info("send refresh notification : " + event.toString())
+        val map = HashMap<String, String>()
+        map[NOTIFICATION_EVENT_KEY] = "refresh"
+        if (event.eventId != null) {
+            map[EVENT_ID_KEY] = event.eventId.toString()
+        }
+        var message = Message.builder()
+                .setTopic("all")
+                .putAllData(map)
                 .build()
         FirebaseMessaging.getInstance().send(message)
 

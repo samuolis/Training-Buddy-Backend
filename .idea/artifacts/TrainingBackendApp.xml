@@ -11,7 +11,7 @@
           <element id="library" level="project" name="com.google.endpoints:endpoints-framework:Release" />
           <element id="library" level="project" name="javax.servlet:servlet-api:2.5" />
           <element id="library" level="project" name="com.google.appengine:appengine-api-1.0-sdk:Release" />
-          <element id="library" level="project" name="com.googlecode.objectify:objectify:5.1.22" />
+          <element id="library" level="project" name="com.googlecode.objectify:objectify:6.0.2" />
         </element>
       </element>
     </root>

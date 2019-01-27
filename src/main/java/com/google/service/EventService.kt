@@ -43,6 +43,10 @@ class EventService {
 
     private val SERVER_URL = "https://training-222106.appspot.com/"
 
+    private val projectId = "training-222106";
+    private val queueName = "training";
+    private val location = "europe-west3";
+
     fun createEvent(event: Event, authCode: String):Event {
         logger.info("Create event")
         if (authenticationService.validateUser(authCode)){
@@ -57,12 +61,6 @@ class EventService {
         if (event.signedUserId != null) {
 
             CloudTasksClient.create().use { client ->
-
-                // Variables provided by the CLI.
-                var projectId = "training-222106";
-                var queueName = "training";
-                var location = "europe-west3";
-                // payload = "hello";
 
                 // Construct the fully qualified queue name.
                 val queuePath = QueueName.of(projectId, location, queueName).toString()
@@ -90,12 +88,41 @@ class EventService {
             var signedUserIdsList: MutableList<String>? = mutableListOf()
             signedUserIdsList?.add(event.userId)
             event.eventSignedPlayers = signedUserIdsList
+            sendRefreshNotification(event)
+        } else{
+            sendRefreshNotification(event)
         }
         try {
             ofy().save().entity(event).now()
             return event
         } catch (e: Exception) {
             throw e
+        }
+    }
+
+    fun sendRefreshNotification(event: Event){
+        CloudTasksClient.create().use { client ->
+
+            // Construct the fully qualified queue name.
+            val queuePath = QueueName.of(projectId, location, queueName).toString()
+
+            val payload = event.toString()
+            logger.info("Payload " + payload)
+
+            // Construct the task body.
+            val taskBuilder = Task
+                    .newBuilder()
+                    .setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
+                            .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
+                            .putHeaders("Content-Type", "application/json")
+                            .setRelativeUri("/notification/refresh")
+                            .setHttpMethod(HttpMethod.POST)
+                            .build())
+                    .build()
+
+            // Send create task request.
+            val task = client.createTask(queuePath, taskBuilder)
+            System.out.println("Task created: " + task.getName())
         }
     }
 
