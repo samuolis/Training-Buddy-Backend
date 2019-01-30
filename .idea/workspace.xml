@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58989ff0-abdb-49b6-bb1d-13bc9bf33f75" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/com_googlecode_objectify_objectify_6_0_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/TrainingBackendApp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/TrainingBackendApp.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_googlecode_objectify_objectify_5_1_22.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/SpringScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/controller/NotificationController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/controller/NotificationController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/domain/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/domain/Event.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/service/NotificationService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/service/NotificationService.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,7 +31,7 @@
         <counts>
           <entry key="dummy" value="51" />
           <entry key="java" value="5528" />
-          <entry key="kt" value="6183" />
+          <entry key="kt" value="6319" />
           <entry key="txt" value="46" />
           <entry key="xml" value="73" />
         </counts>
@@ -46,7 +39,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="5528" />
-          <entry key="Kotlin" value="6183" />
+          <entry key="Kotlin" value="6319" />
           <entry key="PLAIN_TEXT" value="97" />
           <entry key="XML" value="73" />
         </counts>
@@ -56,7 +49,7 @@
           <entry key="class" value="7" />
           <entry key="java" value="52" />
           <entry key="jsp" value="1" />
-          <entry key="kt" value="20" />
+          <entry key="kt" value="22" />
           <entry key="properties" value="1" />
           <entry key="xml" value="13" />
         </counts>
@@ -66,7 +59,7 @@
           <entry key="CLASS" value="7" />
           <entry key="JAVA" value="52" />
           <entry key="JSP" value="1" />
-          <entry key="Kotlin" value="20" />
+          <entry key="Kotlin" value="22" />
           <entry key="Properties" value="1" />
           <entry key="XML" value="13" />
         </counts>
@@ -88,18 +81,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/HelloAppEngine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="507">
@@ -108,23 +89,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/EventController.kt">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="968">
-              <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+            <state relative-caret-position="338">
+              <caret line="118" column="33" selection-start-line="118" selection-start-column="33" selection-end-line="118" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/EventController.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="95" column="12" selection-start-line="95" selection-start-column="12" selection-end-line="95" selection-end-column="12" />
-              <folding>
-                <element signature="e#28#1110#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="484">
+              <caret line="50" column="41" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -150,10 +128,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/NotificationService.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
+            <state relative-caret-position="846">
               <caret line="90" column="32" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
               <folding>
                 <element signature="e#28#714#0" expanded="true" />
@@ -256,8 +234,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/google/controller/NotificationController.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/domain/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/domain/Event.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/service/NotificationService.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt" />
       </list>
     </option>
   </component>
@@ -302,10 +280,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1096" />
+    <option name="x" value="42" />
+    <option name="y" value="-17" />
+    <option name="width" value="1918" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -401,7 +379,7 @@
     <property name="ACTIVE_CLOUD_PROJECT_ID" value="trainingbuddy-221215" />
     <property name="ACTIVE_CLOUD_PROJECT_NAME" value="trainingbuddy" />
     <property name="ACTIVE_CLOUD_PROJECT_NUMBER" value="278738625543" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548609496891" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548873835793" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../GitHub/ud859/Lesson_4/00_Conference_Central" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -601,7 +579,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.19826652" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.13001083" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -737,13 +715,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/NotificationServiceNew.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
-          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/appengine-web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -808,27 +779,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/EventController.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="968">
-          <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/NotificationController.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
           <caret line="28" column="65" selection-start-line="28" selection-start-column="65" selection-end-line="28" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="95" column="12" selection-start-line="95" selection-start-column="12" selection-end-line="95" selection-end-column="12" />
-          <folding>
-            <element signature="e#28#1110#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -844,11 +798,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/NotificationService.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
+        <state relative-caret-position="846">
           <caret line="90" column="32" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
           <folding>
             <element signature="e#28#714#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/controller/EventController.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="50" column="41" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/AuthenticationService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/google/service/EventService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="118" column="33" selection-start-line="118" selection-start-column="33" selection-end-line="118" selection-end-column="33" />
         </state>
       </provider>
     </entry>

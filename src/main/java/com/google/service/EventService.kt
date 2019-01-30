@@ -7,22 +7,13 @@ import com.google.cloud.tasks.v2beta3.QueueName
 import com.google.cloud.tasks.v2beta3.Task
 import com.google.domain.CommentMessage
 import com.google.domain.Event
-import com.google.domain.User
 import com.google.protobuf.ByteString
 import com.googlecode.objectify.Key
 import com.googlecode.objectify.NotFoundException
 import com.googlecode.objectify.ObjectifyService.ofy
-import org.apache.http.entity.ContentType
-import org.omg.CORBA.Object
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Service
-import org.springframework.util.MultiValueMap
-import org.springframework.web.client.RestTemplate
-import org.springframework.web.util.UriComponentsBuilder
-import org.springframework.web.util.UriComponents
 import java.nio.charset.Charset
 import java.util.*
 
@@ -37,11 +28,6 @@ class EventService {
 
     @Autowired
     lateinit var authenticationService: AuthenticationService
-
-    @Autowired
-    lateinit var notificationService: NotificationService
-
-    private val SERVER_URL = "https://training-222106.appspot.com/"
 
     private val projectId = "training-222106";
     private val queueName = "training";
@@ -130,9 +116,13 @@ class EventService {
         logger.info("delete event : " + eventId)
         if (authenticationService.validateUser(authCode)){
             try {
+                var event = getEventByEventId(eventId)
+                event.eventSignedPlayers.forEach {
+                    unsignEvent(it,eventId, authCode)
+                }
                 ofy().delete().type(Event::class.java).id(eventId)
             }catch (e: Exception){
-                throw e
+                logger.error("error " + e.toString())
             }
         } else{
             throw IllegalAccessException()
@@ -144,14 +134,11 @@ class EventService {
         var eventsList: List<Event>
         try {
             eventsList = ofy().load().type<Event>(Event::class.java).filter("userId", userId).toList()
-            var filteredEventList = eventsList.filter {
-                it.eventDate.after(Date(System.currentTimeMillis() + 1000 * 3600 * 2))
-            }
-            return filteredEventList
+            return eventsList
         } catch (e: Exception) {
+            logger.error("error " + e.toString())
             throw e
         }
-
     }
 
     fun getAllEventsByLocation(userId: String, radius: Float, countryCode: String, latitude: Float, longitude: Float): List<Event> {
@@ -163,6 +150,7 @@ class EventService {
                     .filter("eventLocationCountryCode", countryCode)
                     .list()
         } catch (e: Exception) {
+            logger.error("error " + e.toString())
             throw e
         }
         var filteredEventsList = eventsList.filter {
@@ -180,15 +168,12 @@ class EventService {
 
     fun getEventsByEventIds(eventIds: List<Long>): List<Event>{
         try {
-            var event = ofy().load().type(Event::class.java).ids(eventIds).values.toList()
-            return if (event == null) {
-                throw NotFoundException()
-            } else {
-                event.filter {
-                    it.eventDate.after(Date(System.currentTimeMillis() + 1000 * 3600 * 2))
-                }
-            }
+            logger.info("eventids " + eventIds.toString())
+            var listOfEvents =  ofy().load().type(Event::class.java).ids(eventIds).values.toList()
+            logger.info("events " + listOfEvents.toString())
+            return listOfEvents
         } catch (e: Exception) {
+            logger.error("error " + e.toString())
             throw e
         }
     }
