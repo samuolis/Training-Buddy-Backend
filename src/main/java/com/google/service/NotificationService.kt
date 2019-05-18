@@ -2,21 +2,14 @@ package com.google.service
 
 import com.google.domain.CommentMessage
 import com.google.domain.Event
-import com.google.domain.Notification
-import com.google.domain.NotificationObject
 import com.google.firebase.messaging.AndroidConfig
 import com.google.firebase.messaging.AndroidNotification
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.Message
-import com.google.gson.Gson
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.*
-import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
-import org.springframework.web.client.RestTemplate
 import java.util.*
-import com.google.firebase.messaging.FirebaseMessaging
-
 
 
 @Service
@@ -34,14 +27,13 @@ class NotificationService {
 
     private val EVENT_ID_KEY = "event_id"
 
-    fun sendEventSignNotification(event: Event){
+    fun sendEventSignNotification(event: Event) {
         logger.info("In Notification")
         sendRefreshNotification(event)
         var signedUser = userService.getUser(event.signedUserId!!)
-        var eventHolderUser = userService.getUser(event.userId!!)
 
         var message = Message.builder()
-                .setToken(eventHolderUser.userFcmToken)
+                .setTopic("subscribeEventSignIn-" + event.eventId)
                 .setAndroidConfig(AndroidConfig.builder()
                         .setTtl(3600 * 24 * 1000)
                         .setPriority(AndroidConfig.Priority.NORMAL)
@@ -56,8 +48,8 @@ class NotificationService {
         FirebaseMessaging.getInstance().send(message)
     }
 
-    fun sendCommentNotification(commentMessage: CommentMessage){
-        logger.info("send Comment notification")
+    fun sendCommentNotification(commentMessage: CommentMessage) {
+        logger.info("send Comment notification " + commentMessage.eventId)
         var event = eventService.getEventByEventId(commentMessage.eventId)
         val map = HashMap<String, String>()
         map[NOTIFICATION_EVENT_KEY] = "comment"
@@ -79,7 +71,7 @@ class NotificationService {
 
     }
 
-    fun sendRefreshNotification(event: Event){
+    fun sendRefreshNotification(event: Event) {
         logger.info("send refresh notification : " + event.toString())
         val map = HashMap<String, String>()
         map[NOTIFICATION_EVENT_KEY] = "refresh"
