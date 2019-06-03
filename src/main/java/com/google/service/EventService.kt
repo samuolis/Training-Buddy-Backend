@@ -1,14 +1,10 @@
 package com.google.service
 
-import com.google.cloud.tasks.v2beta3.CloudTasksClient
-import com.google.cloud.tasks.v2beta3.AppEngineHttpRequest
-import com.google.cloud.tasks.v2beta3.HttpMethod
-import com.google.cloud.tasks.v2beta3.QueueName
-import com.google.cloud.tasks.v2beta3.Task
+import com.google.cloud.tasks.v2beta3.*
 import com.google.domain.CommentMessage
 import com.google.domain.Event
+import com.google.domain.User
 import com.google.protobuf.ByteString
-import com.googlecode.objectify.Key
 import com.googlecode.objectify.NotFoundException
 import com.googlecode.objectify.ObjectifyService.ofy
 import org.slf4j.LoggerFactory
@@ -33,19 +29,34 @@ class EventService {
     private val queueName = "training";
     private val location = "europe-west3";
 
-    fun createEvent(event: Event, authCode: String):Event {
+    fun createEvent(event: Event, authCode: String): Event {
         logger.info("Create event")
-        if (authenticationService.validateUser(authCode)){
+        if (authenticationService.validateUser(authCode)) {
             return saveEvent(event)
-        } else{
+        } else {
             throw IllegalAccessException()
         }
     }
 
     fun saveEvent(event: Event): Event {
         logger.info("Save event")
-        if (event.signedUserId != null) {
+        if (event.eventSignedPlayers == null) {
+            val signedUserIdsList: MutableList<User>? = mutableListOf()
+            val user = userService.getUser(event.userId)
+            signedUserIdsList?.add(user)
+            event.eventSignedPlayers = signedUserIdsList
+        }
+        try {
+            ofy().save().entity(event).now()
+            sendRefreshNotification(event)
+        } catch (e: Exception) {
+            throw e
+        }
+        return event
+    }
 
+    fun sendRefreshNotification(event: Event) {
+        if (event.signedUserId != null) {
             CloudTasksClient.create().use { client ->
 
                 // Construct the fully qualified queue name.
@@ -69,62 +80,46 @@ class EventService {
                 val task = client.createTask(queuePath, taskBuilder)
                 System.out.println("Task created: " + task.getName())
             }
+        } else {
+            CloudTasksClient.create().use { client ->
 
-        } else if (event.eventSignedPlayers == null){
-            var signedUserIdsList: MutableList<String>? = mutableListOf()
-            signedUserIdsList?.add(event.userId)
-            event.eventSignedPlayers = signedUserIdsList
-            sendRefreshNotification(event)
-        } else{
-            sendRefreshNotification(event)
-        }
-        try {
-            ofy().save().entity(event).now()
-            return event
-        } catch (e: Exception) {
-            throw e
-        }
-    }
+                // Construct the fully qualified queue name.
+                val queuePath = QueueName.of(projectId, location, queueName).toString()
 
-    fun sendRefreshNotification(event: Event){
-        CloudTasksClient.create().use { client ->
+                val payload = event.toString()
+                logger.info("Payload " + payload)
 
-            // Construct the fully qualified queue name.
-            val queuePath = QueueName.of(projectId, location, queueName).toString()
+                // Construct the task body.
+                val taskBuilder = Task
+                        .newBuilder()
+                        .setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
+                                .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
+                                .putHeaders("Content-Type", "application/json")
+                                .setRelativeUri("/notification/refresh")
+                                .setHttpMethod(HttpMethod.POST)
+                                .build())
+                        .build()
 
-            val payload = event.toString()
-            logger.info("Payload " + payload)
-
-            // Construct the task body.
-            val taskBuilder = Task
-                    .newBuilder()
-                    .setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
-                            .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
-                            .putHeaders("Content-Type", "application/json")
-                            .setRelativeUri("/notification/refresh")
-                            .setHttpMethod(HttpMethod.POST)
-                            .build())
-                    .build()
-
-            // Send create task request.
-            val task = client.createTask(queuePath, taskBuilder)
-            System.out.println("Task created: " + task.getName())
+                // Send create task request.
+                val task = client.createTask(queuePath, taskBuilder)
+                System.out.println("Task created: " + task.getName())
+            }
         }
     }
 
-    fun removeEvent(eventId: Long, authCode: String){
+    fun removeEvent(eventId: Long, authCode: String) {
         logger.info("delete event : " + eventId)
-        if (authenticationService.validateUser(authCode)){
+        if (authenticationService.validateUser(authCode)) {
             try {
                 var event = getEventByEventId(eventId)
-                event.eventSignedPlayers.forEach {
-                    unsignEvent(it,eventId, authCode)
+                event.eventSignedPlayers.forEach { user ->
+                    unsignEvent(user.id.toString(), eventId, authCode)
                 }
                 ofy().delete().type(Event::class.java).id(eventId)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 logger.error("error " + e.toString())
             }
-        } else{
+        } else {
             throw IllegalAccessException()
         }
     }
@@ -144,7 +139,7 @@ class EventService {
     fun getAllEventsByLocation(userId: String, radius: Float, countryCode: String, latitude: Float, longitude: Float): List<Event> {
         logger.info("Get all events : " + countryCode + "lat : " + latitude + "longt : " + longitude + "radius : " + radius)
 
-        var eventsList: List<Event>
+        val eventsList: List<Event>
         try {
             eventsList = ofy().load().type<Event>(Event::class.java)
                     .filter("eventLocationCountryCode", countryCode)
@@ -153,23 +148,27 @@ class EventService {
             logger.error("error " + e.toString())
             throw e
         }
-        var filteredEventsList = eventsList.filter {
-            var distanceBetween = distFrom(latitude, longitude, it.eventLocationLatitude.toFloat(),
-                    it.eventLocationLongitude.toFloat()) / 1000
-            it.eventDistance = distanceBetween
-            it.eventSignedPlayers != null && !it.eventSignedPlayers.contains(userId) &&
-                    it.eventSignedPlayers.size < it.eventPlayers && distanceBetween <= radius && it.userId != userId &&
-                    it.eventDate.after(Date(System.currentTimeMillis() + 1000 * 3600 * 2))
+        val filteredEventsList = eventsList.filter { event ->
+            val distanceBetween = distFrom(latitude, longitude, event.eventLocationLatitude.toFloat(),
+                    event.eventLocationLongitude.toFloat()) / 1000
+            event.eventDistance = distanceBetween
+
+            val filteredSignedEvents = event.eventSignedPlayers.filter { user ->
+                user.id == userId.toInt()
+            }
+            filteredSignedEvents.isEmpty() && event.eventSignedPlayers.size < event.eventPlayers &&
+                    distanceBetween <= radius && event.userId != userId &&
+                    event.eventDate.after(Date(System.currentTimeMillis() + 1000 * 3600 * 2))
         }.sortedBy {
             it.eventDistance
         }
         return filteredEventsList
     }
 
-    fun getEventsByEventIds(eventIds: List<Long>): List<Event>{
+    fun getEventsByEventIds(eventIds: List<Long>): List<Event> {
         try {
             logger.info("eventids " + eventIds.toString())
-            var listOfEvents =  ofy().load().type(Event::class.java).ids(eventIds).values.toList()
+            var listOfEvents = ofy().load().type(Event::class.java).ids(eventIds).values.toList()
             logger.info("events " + listOfEvents.toString())
             return listOfEvents
         } catch (e: Exception) {
@@ -178,7 +177,7 @@ class EventService {
         }
     }
 
-    fun setSignInEventAndUser(userId: String, eventId: Long, authCode: String){
+    fun setSignInEventAndUser(userId: String, eventId: Long, authCode: String) {
         if (authenticationService.validateUser(authCode)) {
             var event = getEventByEventId(eventId)
             var user = userService.getUser(userId)
@@ -188,11 +187,11 @@ class EventService {
             if (event.eventSignedPlayers.size == event.eventPlayers) {
                 throw IllegalStateException()
             }
-            var eventSignedUsers: MutableList<String>? = event.eventSignedPlayers
+            var eventSignedUsers: MutableList<User>? = event.eventSignedPlayers
             if (eventSignedUsers == null) {
                 eventSignedUsers = mutableListOf()
             }
-            if (eventSignedUsers.contains(userId)) {
+            if (eventSignedUsers.contains(user)) {
                 throw IllegalStateException()
             }
 
@@ -203,7 +202,7 @@ class EventService {
             if (userSignedEvents.contains(eventId)) {
                 throw IllegalStateException()
             }
-            eventSignedUsers.add(userId)
+            eventSignedUsers.add(user)
             event.eventSignedPlayers = eventSignedUsers
             event.signedUserId = userId
             saveEvent(event)
@@ -216,25 +215,25 @@ class EventService {
         }
     }
 
-    fun unsignEvent(userId: String, eventId: Long, authCode: String){
+    fun unsignEvent(userId: String, eventId: Long, authCode: String) {
         if (authenticationService.validateUser(authCode)) {
-            var event = getEventByEventId(eventId)
-            var user = userService.getUser(userId)
+            val event = getEventByEventId(eventId)
+            val user = userService.getUser(userId)
             if (event.userId == userId) {
                 logger.info("UserId is equal to : " + userId)
                 throw IllegalStateException()
             }
-            var eventSignedUsers: MutableList<String>? = event.eventSignedPlayers
+            val eventSignedUsers = event.eventSignedPlayers
             if (eventSignedUsers == null) {
                 logger.info("eventsigned users is null")
                 throw IllegalStateException()
             }
 
-            var userSignedEvents: MutableList<Long>? = user.signedEventsList
+            val userSignedEvents: MutableList<Long>? = user.signedEventsList
             if (userSignedEvents == null) {
                 throw IllegalStateException()
             }
-            eventSignedUsers.remove(userId)
+            eventSignedUsers.remove(user)
             event.eventSignedPlayers = eventSignedUsers
             saveEvent(event)
 
@@ -246,10 +245,10 @@ class EventService {
         }
     }
 
-    fun getEventByEventId(eventId: Long): Event{
+    fun getEventByEventId(eventId: Long): Event {
         logger.info("Get eventsby ids: " + eventId.toString())
         try {
-            var event = ofy().cache(false).load().type(Event::class.java).id(eventId).now()
+            val event = ofy().cache(false).load().type(Event::class.java).id(eventId).now()
             return if (event == null) {
                 throw NotFoundException()
             } else {
@@ -261,82 +260,51 @@ class EventService {
     }
 
     fun createCommentMessage(commentMessage: CommentMessage, authCode: String): CommentMessage? {
-        logger.info("create comment: " + commentMessage.messageId)
+        logger.info("create comment: " + commentMessage.eventId)
         if (authenticationService.validateUser(authCode)) {
 
-            var userId = commentMessage.userId
-            var user = userService.getUser(userId)
+            val userId = commentMessage.userId
+            val user = userService.getUser(userId)
             commentMessage.messageUserName = user.fullName
-            var message: Key<CommentMessage>? = null
-            try {
-                message = ofy().save().entity(commentMessage).now()
-            } catch (e: Exception) {
-                throw e
+
+            val event = getEventByEventId(commentMessage.eventId)
+            var eventComments: MutableList<CommentMessage>? = event.eventComments
+            if (eventComments == null) {
+                eventComments = mutableListOf()
             }
-            logger.info("message id : " + message.id)
-            if (message.id != null) {
-                var event = getEventByEventId(commentMessage.eventId)
-                var eventComments: MutableList<Long>? = event.eventComments
-                if (eventComments == null) {
-                    eventComments = mutableListOf()
-                }
-                eventComments.add(message.id)
-                event.eventComments = eventComments
-                saveEvent(event)
-                CloudTasksClient.create().use { client ->
+            eventComments.add(commentMessage)
+            event.eventComments = eventComments
+            saveEvent(event)
+            CloudTasksClient.create().use { client ->
 
-                    // Variables provided by the CLI.
-                    var projectId = "training-222106";
-                    var queueName = "training";
-                    var location = "europe-west3";
-                    // payload = "hello";
+                val projectId = "training-222106";
+                val queueName = "training";
+                val location = "europe-west3";
 
-                    // Construct the fully qualified queue name.
-                    val queuePath = QueueName.of(projectId, location, queueName).toString()
+                val queuePath = QueueName.of(projectId, location, queueName).toString()
 
-                    val payload = commentMessage.toString()
-                    logger.info("Payload " + payload)
+                val payload = commentMessage.toString()
+                logger.info("Payload " + payload)
 
-                    // Construct the task body.
-                    val taskBuilder = Task
-                            .newBuilder()
-                            .setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
-                                    .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
-                                    .putHeaders("Content-Type", "application/json")
-                                    .setRelativeUri("/notification/comment")
-                                    .setHttpMethod(HttpMethod.POST)
-                                    .build())
-                            .build()
+                val taskBuilder = Task
+                        .newBuilder()
+                        .setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
+                                .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
+                                .putHeaders("Content-Type", "application/json")
+                                .setRelativeUri("/notification/comment")
+                                .setHttpMethod(HttpMethod.POST)
+                                .build())
+                        .build()
 
-                    // Send create task request.
-                    val task = client.createTask(queuePath, taskBuilder)
-                    System.out.println("Task created: " + task.getName())
-                }
-                logger.info("task created: " + commentMessage.messageId)
-                return commentMessage
-            } else {
-                return null
+                val task = client.createTask(queuePath, taskBuilder)
+                System.out.println("Task created: " + task.getName())
             }
-        } else{
+            logger.info("task created: " + commentMessage.eventId)
+            return commentMessage
+        } else {
             throw IllegalAccessException()
         }
     }
-
-    fun getAllMessagesByMessageId(listOfMessageIds: List<Long>): List<CommentMessage>{
-        logger.info("load event comments")
-        try {
-            var commentMessages = ofy().load().type(CommentMessage::class.java).ids(listOfMessageIds).values.toList()
-            return if (commentMessages == null) {
-                throw NotFoundException()
-            } else {
-                commentMessages
-            }
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
-    fun selector(event: Event): Float = event.eventDistance
 
     //distance in meters
     fun distFrom(lat1: Float, lng1: Float, lat2: Float, lng2: Float): Float {

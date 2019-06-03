@@ -1,22 +1,17 @@
 package com.google;
 
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.domain.CommentMessage;
 import com.google.domain.Event;
 import com.google.domain.User;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.googlecode.objectify.ObjectifyService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.task.TaskExecutor;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,7 +26,6 @@ public class SpringScreen extends SpringBootServletInitializer {
         ObjectifyService.init();
         ObjectifyService.register(User.class);
         ObjectifyService.register(Event.class);
-        ObjectifyService.register(CommentMessage.class);
 
         try {
             FirebaseOptions options = new FirebaseOptions.Builder()
@@ -39,7 +33,7 @@ public class SpringScreen extends SpringBootServletInitializer {
                     .setDatabaseUrl("https://training-222106.firebaseio.com")
                     .build();
 
-            if(FirebaseApp.getApps().isEmpty()) { //<--- check with this line
+            if (FirebaseApp.getApps().isEmpty()) { //<--- check with this line
                 FirebaseApp.initializeApp(options);
             }
 
@@ -50,7 +44,6 @@ public class SpringScreen extends SpringBootServletInitializer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
 
         return application.sources(SpringScreen.class);

@@ -1,6 +1,9 @@
 package com.google.domain;
 
-import com.googlecode.objectify.annotation.*;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Index;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -44,15 +47,15 @@ public class Event {
     @Ignore
     private String signedUserId;
 
-    private List<String> eventSignedPlayers;
+    private List<User> eventSignedPlayers;
 
-    private List<Long> eventComments;
+    private List<CommentMessage> eventComments;
 
-    public List<Long> getEventComments() {
+    public List<CommentMessage> getEventComments() {
         return eventComments;
     }
 
-    public void setEventComments(List<Long> eventComments) {
+    public void setEventComments(List<CommentMessage> eventComments) {
         this.eventComments = eventComments;
     }
 
@@ -64,11 +67,11 @@ public class Event {
         this.signedUserId = signedUserId;
     }
 
-    public List<String> getEventSignedPlayers() {
+    public List<User> getEventSignedPlayers() {
         return eventSignedPlayers;
     }
 
-    public void setEventSignedPlayers(List<String> eventSignedPlayers) {
+    public void setEventSignedPlayers(List<User> eventSignedPlayers) {
         this.eventSignedPlayers = eventSignedPlayers;
     }
 
@@ -176,10 +179,10 @@ public class Event {
     private ArrayList<String> getArrayCommentsInString(){
         ArrayList<String> newArrayList = new ArrayList<String>();
         if (eventComments == null){
-            eventComments = new ArrayList<Long>();
+            eventComments = new ArrayList<CommentMessage>();
         }
-        this.eventComments.forEach((commentId) -> {
-            newArrayList.add("\"" + commentId + "\"");
+        this.eventComments.forEach((comment) -> {
+            newArrayList.add("\"" + comment.toString() + "\"");
         });
         return newArrayList;
     }

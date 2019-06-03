@@ -68,9 +68,4 @@ class EventController {
         return eventService.createCommentMessage(commentMessage, authCode)
     }
 
-    @RequestMapping(value = "/event/comments", method = arrayOf(RequestMethod.POST))
-    fun getEventCommentsByIds(@RequestBody listOfIds: List<Long>): List<CommentMessage> {
-        return eventService.getAllMessagesByMessageId(listOfIds)
-    }
-
 }

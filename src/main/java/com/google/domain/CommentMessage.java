@@ -1,18 +1,9 @@
 package com.google.domain;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-
-@Entity
 public class CommentMessage {
-    @Id
-    private Long messageId;
 
-    @Index
     private String userId;
 
-    @Index
     private Long eventId;
 
     private String messageText;
@@ -27,14 +18,6 @@ public class CommentMessage {
 
     public void setMessageUserName(String messageUserName) {
         this.messageUserName = messageUserName;
-    }
-
-    public Long getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(Long messageId) {
-        this.messageId = messageId;
     }
 
     public String getUserId() {
@@ -71,8 +54,8 @@ public class CommentMessage {
 
     @Override
     public String toString() {
-        return "{" + "\"eventId\": \"" + this.eventId + "\", \"userId\": \"" + this.userId +
-                "\", \"messageId\": \"" + this.messageId + "\", \"messageText\": \"" + this.messageText +
-                "\", \"messageTime\": \"" + this.messageTime + "\", \"messageUserName\": \"" + this.messageUserName + "\"}";
+        return "{" + "\"eventId\": \"" + this.eventId + "\", \"userId\": \"" + this.userId
+                + "\", \"messageText\": \"" + this.messageText + "\", \"messageTime\": \""
+                + this.messageTime + "\", \"messageUserName\": \"" + this.messageUserName + "\"}";
     }
 }
