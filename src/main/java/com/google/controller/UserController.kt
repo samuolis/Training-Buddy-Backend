@@ -11,17 +11,17 @@ class UserController {
     @Autowired
     internal var userService: UserService? = null
 
-    @RequestMapping(value = "/user", method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = ["/user"], method = arrayOf(RequestMethod.POST))
     fun postUser(@RequestBody user: User): User {
         return userService!!.saveUser(user)
     }
 
-    @RequestMapping(value = "/user/{userId}", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = ["/user/{userId}"], method = arrayOf(RequestMethod.GET))
     fun getUser(@PathVariable userId: String): User {
         return userService!!.getUser(userId)
     }
 
-    @RequestMapping(value = "/users", method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = ["/users"], method = arrayOf(RequestMethod.POST))
     fun getUsersByIds(@RequestBody userIds: List<String>): List<User> {
         return userService!!.getUsersById(userIds)
     }

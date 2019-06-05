@@ -14,17 +14,17 @@ class NotificationController {
     lateinit var notificationService: NotificationService
 
 
-    @RequestMapping(value = "/notification/event", method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = ["/notification/event"], method = arrayOf(RequestMethod.POST))
     fun signEvent(@RequestBody event: Event) {
         return notificationService.sendEventSignNotification(event)
     }
 
-    @RequestMapping(value = "/notification/comment", method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = ["/notification/comment"], method = arrayOf(RequestMethod.POST))
     fun comment (@RequestBody commentMessage: CommentMessage) {
         return notificationService.sendCommentNotification(commentMessage)
     }
 
-    @RequestMapping(value = "/notification/refresh", method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = ["/notification/refresh"], method = arrayOf(RequestMethod.POST))
     fun refresh (@RequestBody event: Event) {
         return notificationService.sendRefreshNotification(event)
     }

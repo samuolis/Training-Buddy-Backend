@@ -78,7 +78,7 @@ class NotificationService {
         if (event.eventId != null) {
             map[EVENT_ID_KEY] = event.eventId.toString()
         }
-        var message = Message.builder()
+        val message = Message.builder()
                 .setTopic("all")
                 .putAllData(map)
                 .build()

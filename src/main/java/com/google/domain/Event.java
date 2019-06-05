@@ -171,7 +171,7 @@ public class Event {
     private ArrayList<String> getSignedPlayersInString(){
         ArrayList<String> newArrayList = new ArrayList<String>();
         this.eventSignedPlayers.forEach((userIdForEach) -> {
-            newArrayList.add("\"" + userIdForEach + "\"");
+            newArrayList.add(userIdForEach.toString());
         });
         return newArrayList;
     }
@@ -182,7 +182,7 @@ public class Event {
             eventComments = new ArrayList<CommentMessage>();
         }
         this.eventComments.forEach((comment) -> {
-            newArrayList.add("\"" + comment.toString() + "\"");
+            newArrayList.add(comment.toString());
         });
         return newArrayList;
     }

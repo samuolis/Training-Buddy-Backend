@@ -4,9 +4,15 @@ import com.google.cloud.tasks.v2beta3.*
 import com.google.domain.CommentMessage
 import com.google.domain.Event
 import com.google.domain.User
+import com.google.firebase.messaging.AndroidConfig
+import com.google.firebase.messaging.AndroidNotification
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.Message
 import com.google.protobuf.ByteString
 import com.googlecode.objectify.NotFoundException
 import com.googlecode.objectify.ObjectifyService.ofy
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -23,11 +29,10 @@ class EventService {
     lateinit var userService: UserService
 
     @Autowired
-    lateinit var authenticationService: AuthenticationService
+    lateinit var notificationService: NotificationService
 
-    private val projectId = "training-222106";
-    private val queueName = "training";
-    private val location = "europe-west3";
+    @Autowired
+    lateinit var authenticationService: AuthenticationService
 
     fun createEvent(event: Event, authCode: String): Event {
         logger.info("Create event")
@@ -55,54 +60,14 @@ class EventService {
         return event
     }
 
-    fun sendRefreshNotification(event: Event) {
+    private fun sendRefreshNotification(event: Event) {
         if (event.signedUserId != null) {
-            CloudTasksClient.create().use { client ->
-
-                // Construct the fully qualified queue name.
-                val queuePath = QueueName.of(projectId, location, queueName).toString()
-
-                val payload = event.toString()
-                logger.info("Payload " + payload)
-
-                // Construct the task body.
-                val taskBuilder = Task
-                        .newBuilder()
-                        .setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
-                                .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
-                                .putHeaders("Content-Type", "application/json")
-                                .setRelativeUri("/notification/event")
-                                .setHttpMethod(HttpMethod.POST)
-                                .build())
-                        .build()
-
-                // Send create task request.
-                val task = client.createTask(queuePath, taskBuilder)
-                System.out.println("Task created: " + task.getName())
+            GlobalScope.launch {
+                notificationService.sendEventSignNotification(event)
             }
         } else {
-            CloudTasksClient.create().use { client ->
-
-                // Construct the fully qualified queue name.
-                val queuePath = QueueName.of(projectId, location, queueName).toString()
-
-                val payload = event.toString()
-                logger.info("Payload " + payload)
-
-                // Construct the task body.
-                val taskBuilder = Task
-                        .newBuilder()
-                        .setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
-                                .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
-                                .putHeaders("Content-Type", "application/json")
-                                .setRelativeUri("/notification/refresh")
-                                .setHttpMethod(HttpMethod.POST)
-                                .build())
-                        .build()
-
-                // Send create task request.
-                val task = client.createTask(queuePath, taskBuilder)
-                System.out.println("Task created: " + task.getName())
+            GlobalScope.launch {
+                notificationService.sendRefreshNotification(event)
             }
         }
     }
@@ -111,7 +76,7 @@ class EventService {
         logger.info("delete event : " + eventId)
         if (authenticationService.validateUser(authCode)) {
             try {
-                var event = getEventByEventId(eventId)
+                val event = getEventByEventId(eventId)
                 event.eventSignedPlayers.forEach { user ->
                     unsignEvent(user.id.toString(), eventId, authCode)
                 }
@@ -126,7 +91,7 @@ class EventService {
 
     fun getAllEventsByUser(userId: String): List<Event> {
         logger.info("Get all events : " + userId)
-        var eventsList: List<Event>
+        val eventsList: List<Event>
         try {
             eventsList = ofy().load().type<Event>(Event::class.java).filter("userId", userId).toList()
             return eventsList
@@ -154,7 +119,7 @@ class EventService {
             event.eventDistance = distanceBetween
 
             val filteredSignedEvents = event.eventSignedPlayers.filter { user ->
-                user.id == userId.toInt()
+                user.userId == userId
             }
             filteredSignedEvents.isEmpty() && event.eventSignedPlayers.size < event.eventPlayers &&
                     distanceBetween <= radius && event.userId != userId &&
@@ -165,10 +130,17 @@ class EventService {
         return filteredEventsList
     }
 
-    fun getEventsByEventIds(eventIds: List<Long>): List<Event> {
+    fun getEventsByEventIds(userId: String): List<Event> {
+        val user = userService.getUser(userId)
+        if (user.signedEventsList == null) return emptyList()
         try {
-            logger.info("eventids " + eventIds.toString())
-            var listOfEvents = ofy().load().type(Event::class.java).ids(eventIds).values.toList()
+            logger.info("eventids " + user.signedEventsList.toString())
+            val listOfEvents = ofy()
+                    .load()
+                    .type(Event::class.java)
+                    .ids(user.signedEventsList)
+                    .values
+                    .toList()
             logger.info("events " + listOfEvents.toString())
             return listOfEvents
         } catch (e: Exception) {
@@ -177,10 +149,10 @@ class EventService {
         }
     }
 
-    fun setSignInEventAndUser(userId: String, eventId: Long, authCode: String) {
+    fun setSignInEventAndUser(userId: String, eventId: Long, authCode: String): Event {
         if (authenticationService.validateUser(authCode)) {
-            var event = getEventByEventId(eventId)
-            var user = userService.getUser(userId)
+            val event = getEventByEventId(eventId)
+            val user = userService.getUser(userId)
             if (event.userId == userId) {
                 throw IllegalStateException()
             }
@@ -210,12 +182,13 @@ class EventService {
             userSignedEvents.add(eventId)
             user.signedEventsList = userSignedEvents
             userService.saveUser(user)
+            return event
         } else {
             throw IllegalAccessException()
         }
     }
 
-    fun unsignEvent(userId: String, eventId: Long, authCode: String) {
+    fun unsignEvent(userId: String, eventId: Long, authCode: String): Event {
         if (authenticationService.validateUser(authCode)) {
             val event = getEventByEventId(eventId)
             val user = userService.getUser(userId)
@@ -229,17 +202,17 @@ class EventService {
                 throw IllegalStateException()
             }
 
-            val userSignedEvents: MutableList<Long>? = user.signedEventsList
-            if (userSignedEvents == null) {
-                throw IllegalStateException()
+            eventSignedUsers.removeIf { signedUser ->
+                signedUser.userId == userId
             }
-            eventSignedUsers.remove(user)
             event.eventSignedPlayers = eventSignedUsers
             saveEvent(event)
 
+            val userSignedEvents: MutableList<Long> = user.signedEventsList ?: throw IllegalStateException()
             userSignedEvents.remove(eventId)
             user.signedEventsList = userSignedEvents
             userService.saveUser(user)
+            return event
         } else {
             throw IllegalAccessException()
         }
@@ -275,29 +248,8 @@ class EventService {
             eventComments.add(commentMessage)
             event.eventComments = eventComments
             saveEvent(event)
-            CloudTasksClient.create().use { client ->
-
-                val projectId = "training-222106";
-                val queueName = "training";
-                val location = "europe-west3";
-
-                val queuePath = QueueName.of(projectId, location, queueName).toString()
-
-                val payload = commentMessage.toString()
-                logger.info("Payload " + payload)
-
-                val taskBuilder = Task
-                        .newBuilder()
-                        .setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
-                                .setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
-                                .putHeaders("Content-Type", "application/json")
-                                .setRelativeUri("/notification/comment")
-                                .setHttpMethod(HttpMethod.POST)
-                                .build())
-                        .build()
-
-                val task = client.createTask(queuePath, taskBuilder)
-                System.out.println("Task created: " + task.getName())
+            GlobalScope.launch {
+                notificationService.sendCommentNotification(commentMessage)
             }
             logger.info("task created: " + commentMessage.eventId)
             return commentMessage

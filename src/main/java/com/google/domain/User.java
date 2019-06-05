@@ -6,6 +6,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.IgnoreLoad;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -77,5 +78,23 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    private ArrayList<String> getArraySignedEventListInString(){
+        ArrayList<String> newArrayList = new ArrayList<String>();
+        if (signedEventsList == null) {
+            return newArrayList;
+        }
+        this.signedEventsList.forEach((eventIdForEach) -> {
+            newArrayList.add("\"" + eventIdForEach.toString() + "\"");
+        });
+        return newArrayList;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + "\"userId\": \"" + this.userId + "\", \"fullName\": \"" + this.fullName +
+                "\", \"createdOn\": \"" + this.createdAt + "\", \"profilePictureIndex\": \"" + this.profilePictureIndex +
+                "\", \"signedEventsList\": \"" + getArraySignedEventListInString() + "\"}";
     }
 }
