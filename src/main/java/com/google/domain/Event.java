@@ -24,16 +24,7 @@ public class Event {
 
     private String eventDescription;
 
-    private String eventLocationName;
-
-    @Index
-    private Double eventLocationLongitude;
-
-    @Index
-    private Double eventLocationLatitude;
-
-    @Index
-    private String eventLocationCountryCode;
+    private EventLocation eventLocation;
 
     @Index
     private int eventPlayers;
@@ -83,14 +74,6 @@ public class Event {
         this.eventDistance = eventDistance;
     }
 
-    public String getEventLocationCountryCode() {
-        return eventLocationCountryCode;
-    }
-
-    public void setEventLocationCountryCode(String eventLocationCountryCode) {
-        this.eventLocationCountryCode = eventLocationCountryCode;
-    }
-
     public Long getEventId() {
         return eventId;
     }
@@ -123,28 +106,12 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public String getEventLocationName() {
-        return eventLocationName;
+    public EventLocation getEventLocation() {
+        return eventLocation;
     }
 
-    public void setEventLocationName(String eventLocationName) {
-        this.eventLocationName = eventLocationName;
-    }
-
-    public Double getEventLocationLongitude() {
-        return eventLocationLongitude;
-    }
-
-    public void setEventLocationLongitude(Double eventLocationLongitude) {
-        this.eventLocationLongitude = eventLocationLongitude;
-    }
-
-    public Double getEventLocationLatitude() {
-        return eventLocationLatitude;
-    }
-
-    public void setEventLocationLatitude(Double eventLocationLatitude) {
-        this.eventLocationLatitude = eventLocationLatitude;
+    public void setEventLocation(EventLocation eventLocation) {
+        this.eventLocation = eventLocation;
     }
 
     public int getEventPlayers() {
@@ -163,12 +130,12 @@ public class Event {
         this.eventDate = eventDate;
     }
 
-    private String getEventDateToString(){
+    private String getEventDateToString() {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         return formatter.format(this.eventDate);
     }
 
-    private ArrayList<String> getSignedPlayersInString(){
+    private ArrayList<String> getSignedPlayersInString() {
         ArrayList<String> newArrayList = new ArrayList<String>();
         this.eventSignedPlayers.forEach((userIdForEach) -> {
             newArrayList.add(userIdForEach.toString());
@@ -176,9 +143,9 @@ public class Event {
         return newArrayList;
     }
 
-    private ArrayList<String> getArrayCommentsInString(){
+    private ArrayList<String> getArrayCommentsInString() {
         ArrayList<String> newArrayList = new ArrayList<String>();
-        if (eventComments == null){
+        if (eventComments == null) {
             eventComments = new ArrayList<CommentMessage>();
         }
         this.eventComments.forEach((comment) -> {
@@ -189,12 +156,18 @@ public class Event {
 
     @Override
     public String toString() {
-        return "{" + "\"eventId\": \"" + this.eventId + "\", \"userId\": \"" + this.userId +
-                "\", \"eventDescription\": \"" + this.eventDescription + "\", \"eventLocationName\": \"" + this.eventLocationName +
-                "\", \"eventLocationLongitude\": \"" + this.eventLocationLongitude + "\", \"eventLocationLatitude\": \"" + this.eventLocationLatitude +
-                "\", \"eventLocationCountryCode\": \"" + this.eventLocationCountryCode + "\", \"eventPlayers\": \"" + this.eventPlayers +
-                "\", \"eventDate\": \"" + getEventDateToString() + "\", \"eventDistance\": \"" + this.eventDistance +
-                "\", \"signedUserId\": \"" + this.signedUserId + "\", \"eventSignedPlayers\": " + getSignedPlayersInString().toString() +
-                ", \"eventComments\": " + getArrayCommentsInString() + ", \"eventName\": \"" + this.eventName + "\"}";
+        return "{" +
+                "\"eventId\": \"" + this.eventId +
+                "\", \"userId\": \"" + this.userId +
+                "\", \"eventDescription\": \"" + this.eventDescription +
+                "\", \"eventLocation\": \"" + this.eventLocation.toString() +
+                "\", \"eventPlayers\": \"" + this.eventPlayers +
+                "\", \"eventDate\": \"" + getEventDateToString() +
+                "\", \"eventDistance\": \"" + this.eventDistance +
+                "\", \"signedUserId\": \"" + this.signedUserId +
+                "\", \"eventSignedPlayers\": " + getSignedPlayersInString().toString() +
+                ", \"eventComments\": " + getArrayCommentsInString() +
+                ", \"eventName\": \"" + this.eventName +
+                "\"}";
     }
 }

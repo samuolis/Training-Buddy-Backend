@@ -54,8 +54,12 @@ public class CommentMessage {
 
     @Override
     public String toString() {
-        return "{" + "\"eventId\": \"" + this.eventId + "\", \"userId\": \"" + this.userId
-                + "\", \"messageText\": \"" + this.messageText + "\", \"messageTime\": \""
-                + this.messageTime + "\", \"messageUserName\": \"" + this.messageUserName + "\"}";
+        return "{" +
+                "\"eventId\": \"" + this.eventId +
+                "\", \"userId\": \"" + this.userId +
+                "\", \"messageText\": \"" + this.messageText +
+                "\", \"messageTime\": \"" + this.messageTime +
+                "\", \"messageUserName\": \"" + this.messageUserName +
+                "\"}";
     }
 }

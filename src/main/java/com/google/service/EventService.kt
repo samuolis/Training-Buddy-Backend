@@ -1,14 +1,8 @@
 package com.google.service
 
-import com.google.cloud.tasks.v2beta3.*
 import com.google.domain.CommentMessage
 import com.google.domain.Event
 import com.google.domain.User
-import com.google.firebase.messaging.AndroidConfig
-import com.google.firebase.messaging.AndroidNotification
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.Message
-import com.google.protobuf.ByteString
 import com.googlecode.objectify.NotFoundException
 import com.googlecode.objectify.ObjectifyService.ofy
 import kotlinx.coroutines.GlobalScope
@@ -16,7 +10,6 @@ import kotlinx.coroutines.launch
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.nio.charset.Charset
 import java.util.*
 
 
@@ -113,9 +106,13 @@ class EventService {
             logger.error("error " + e.toString())
             throw e
         }
-        val filteredEventsList = eventsList.filter { event ->
-            val distanceBetween = distFrom(latitude, longitude, event.eventLocationLatitude.toFloat(),
-                    event.eventLocationLongitude.toFloat()) / 1000
+        return eventsList.filter { event ->
+            val distanceBetween = distFrom(
+                    latitude,
+                    longitude,
+                    event.eventLocation.eventLocationLatitude.toFloat(),
+                    event.eventLocation.eventLocationLongitude.toFloat()
+            ) / 1000
             event.eventDistance = distanceBetween
 
             val filteredSignedEvents = event.eventSignedPlayers.filter { user ->
@@ -127,7 +124,6 @@ class EventService {
         }.sortedBy {
             it.eventDistance
         }
-        return filteredEventsList
     }
 
     fun getEventsByEventIds(userId: String): List<Event> {
