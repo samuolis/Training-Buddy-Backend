@@ -38,7 +38,7 @@
     <spring.boot.version>2.1.0.RELEASE</spring.boot.version> <!-- DO NOT UPDATE w/o MANUAL TESTING -->
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <archiveClasses>true</archiveClasses>
-      <kotlin.version>1.3.31</kotlin.version>
+      <kotlin.version>1.6.0</kotlin.version>
   </properties>
 
   <prerequisites>
